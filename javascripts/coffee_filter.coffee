@@ -1,8 +1,19 @@
-# = Coffee Filter =
+#      = Coffee Filter =
 #
-# a collection of coffeescript helpers I've used across projects
-# by Michael P. Geraci, 2012
+#  _______________________
+#  \\\                   /
+#   \\\                 /
+#    \\\               /
+#     \\\             /
+#      \\\           /
+#       \\\\\\\\\\\\/
+#
+#
+# A collection of coffeescript helpers I've used across projects
+# By Michael P. Geraci, 2012
 # mgeraci.com
+#
+# MIT License
 
 
 # functions that should run onload
@@ -15,7 +26,6 @@ $(->
 # show a tag on hover (e.g., a username when hovering over an avatar)
 # add the desired text as a data attribute on the element, e.g.:
 #   <img src='/images/avatar.png' data-hover-tag='michael geraci'>
-# some images and styles required for this to work (included)
 window.hover_tags = ->
   $('body').on 'mouseover', '[data-hover-tag]', (e)->
     target = $(this).closest('[data-hover-tag]')
@@ -23,7 +33,7 @@ window.hover_tags = ->
     # Clean out hover tag title so browser hover doesn't show
     old_title = target.attr('title')
     target.attr('title', '')
-    name = unescape(target.data('hover-tag'))
+    name = unescape(target.data('hover-tag')) # unescape in case you use line breaks
 
     # use title attr if no hover-tag defined
     if name == ''
@@ -32,8 +42,38 @@ window.hover_tags = ->
 
     position = target.offset()
 
-    # append tag if it doesn't exist
-    $('body').append('<div class="hover_tag"><div class="text"></div><div class="tag_pointer"></div></div>') if $('.hover_tag').length == 0
+    # append tag and styles if it doesn't exist
+    if $('.hover_tag').length == 0
+      tag_styles =
+        position: 'absolute'
+        display: 'none'
+        padding: '4px 6px 2px'
+        background: 'black'
+        background: 'rgba(0,0,0,0.8)'
+        color: 'white'
+        fontSize: '13px'
+        textTransform: 'lowercase'
+        zIndex: 800
+
+      pointer_styles =
+        position: 'absolute'
+        top: '-6px'
+        left: '50%'
+        marginLeft: '-3px'
+        width: '8px'
+        height: '6px'
+        background: 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAGCAYAAAD+Bd/7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAElJREFUeNpiYEAFxVCMFRgD8RkoNoYJMkJpXiBeBsSSUP5zII4C4s/MUIFcILZEMg2kgR2IjzNCjZuJw9p0kILNSEajg+cAAQYA1jkKUj6WaH4AAAAASUVORK5CYII=) no-repeat'
+
+      # add the html structure
+      $('body').append "
+        <div class='hover_tag'>
+          <div class='text'></div>
+          <div class='tag_pointer'></div>
+        </div>"
+
+      # add the styles
+      $('.hover_tag').css tag_styles
+      $('.hover_tag .tag_pointer').css pointer_styles
 
     tag = $('.hover_tag')
 
@@ -43,19 +83,17 @@ window.hover_tags = ->
     top_offset = 8
     left_offset = 0
 
-    if $(this).hasClass('questions_item_image')
-      top_offset = 11
-      left_offset = -1
-    else if $(this).hasClass('remove_item')
-      left_offset = 2
-    else if $(this).hasClass('delete_question')
-      top_offset = 9
-      left_offset = 6
+    # here's a good place to put conditionals for special cases
+    # you can override top_offset and left_offset, for example:
+    # if $(this).hasClass('questions_item_image')
+    #  top_offset = 11
+    #  left_offset = -1
 
     # position and show the tag
-    if $(this).hasClass('suggested_avatar')
-      return if $(window).width() < 641
-    tag.css({top: position.top + target.outerHeight() + top_offset, left: position.left - tag.outerWidth() / 2 + target.width() / 2 + left_offset}).show()
+    tag.css(
+      top: position.top + target.outerHeight() + top_offset
+      left: position.left - tag.outerWidth() / 2 + target.width() / 2 + left_offset
+    ).show()
 
   $('body').on 'mouseout', '[data-hover-tag]', (e)->
     $('.hover_tag').hide()
@@ -65,6 +103,7 @@ window.hover_tags = ->
 # requires modernizr
 # http://webdesignerwall.com/tutorials/cross-browser-html5-placeholder-text
 window.set_placeholder_text = ->
+  return unless Modernizer?
   unless Modernizr.input.placeholder
     $('[placeholder]').focus(->
       input = $(this)
@@ -166,6 +205,48 @@ jQuery.fn.square_image = ->
   else
     img.css({width: '100%', height: '100%'})
 
+# center an image a box, keeping its original
+# aspect ratio
+jQuery.fn.center_image = ->
+  wrapper = $(this)
+  img = wrapper.find('img')
+
+  w = img.width()
+  h = img.height()
+  max_size = if wrapper.height() > wrapper.width() then wrapper.width() else wrapper.height()
+
+  # if the image is smaller than the box
+  if w <= max_size && h <= max_size
+    img.width(w)
+    img.height(h)
+    margin_top = (max_size - h) / 2
+    margin_left = (max_size - w) / 2
+    img.css({margin: "#{margin_top}px 0 0 #{margin_left}px"})
+
+  # if the image is larger than the box
+  else
+    # handle each case (w>h, h>w, w==h)
+    if w == h
+      img.width(max_size)
+      img.height(max_size)
+    else
+      if w > h
+        new_max = max_size / (w / h)
+        margin = (max_size - new_max) / 2
+        img.css({
+          width: max_size,
+          height: new_max,
+          margin: "#{margin}px 0 0 0"
+        })
+      else
+        new_max = max_size / (h / w)
+        margin = (max_size - new_max) / 2
+        img.css({
+          width: new_max,
+          height: max_size,
+          margin: "0 0 0 #{margin}px"
+        })
+
 
 ## these next two handle "save" and "done saving" states for buttons
 ## expects two data attributes for the button's text:
@@ -228,8 +309,8 @@ jQuery.fn.outerHTML = ()->
   $(this).clone().wrap('<div>').parent().html()
 
 # should keyboard shortcuts be allowed? returns true or false.
-# requires modernizr for ie8 check
 # sees that you are not in an input or textarea
+# requires <html> to have the class "ie8" when appropriate
 window.should_allow_keyboard_shortcuts = ->
   if $(':focus').is('input') || $(':focus').is('textarea') || $(':focus').is('select') || $('html').hasClass('ie8')
     return false

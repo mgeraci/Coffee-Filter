@@ -1,28 +1,38 @@
 Coffee Filter
 =============
 
-Coffee Filter is a collection of coffeescript helpers I've used across projects. I didn't make all
-of them and some I customized, but I tried to credit other authors
-where appropriate. Included are:
+Coffee Filter is a collection of coffeescript helpers I've used across projects. I didn't make all of them and some I customized, but I've credited other authors where appropriate. Included are:
 
-- hover tags for showing additional notes (e.g., a username when
+- hover tags for showing notes on an element (e.g., a username when
   hovering over an avatar)
-- placeholder text for browsers that don't support it (requires
+- placeholder text for browsers that don't support the html5 spec (requires
   modernizr)
 - textarea autoexpand when typing large blocks of text
+- fill a square with an image of arbitrary dimensions
 - position an image of arbitrary dimensions in a square
-- saving and unsave states for buttons/links when using ajax
+- saving and default states for buttons/links when using ajax
 - autolink urls in a block of text (great for comments!)
 - set a custom tabindex on an array of items
 - outerHTML()
 - a check to see if keyboard shortcuts should be enabled (if not ie8 or
   typing in a field)
 
+You are welcome to throw this file into your project, but you may find
+it wise to pick and choose which functions you'd like to use.
+
 
 Requirements
 ------------
 
 jQuery, and in some cases, modernizr
+
+
+Thanks
+------
+
+- Webdesignerwall.com for placeholder text structure
+- Tore Darell for autoexpanding textarea structure
+- Dtime, the job at which I wrote most of these
 
 
 License
