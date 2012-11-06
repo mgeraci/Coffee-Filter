@@ -4,8 +4,13 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/coffee-filter.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <script type='text/javascript' src='javascripts/jquery-1.8.2.min.js'></script>
+    <script type='text/javascript' src='javascripts/modernizr.min.js'></script>
+    <script type='text/javascript' src='javascripts/underscore-min.js'></script>
+    <script type='text/javascript' src='javascripts/coffee_filter.js'></script>
     <script type='text/javascript' src='javascripts/main.js'></script>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -50,6 +55,42 @@
             <li>a check to see if keyboard shortcuts should be enabled (if not ie8 or
             typing in a field)</li>
           </ul>
+        </section>
+
+        <section id='hover_tag'>
+          <h2>Hover Tag</h2>
+          <img src='images/mgeraci_square.png' data-hover-tag='Michael P. Geraci'/>
+        </section>
+
+        <section id='placeholder'>
+          <h2>Placeholder Text</h2>
+          <input type='text' placeholder='placeholder text' />
+        </section>
+
+        <section id='autoexpand'>
+          <h2>Autoexpanding Text Areas</h2>
+          <textarea></textarea>
+        </section>
+
+        <section id='square_image'>
+          <h2>Fill a Square with an Image</h2>
+          <img src='images/example.jpg' />
+          <div id='square_image_wrapper' class='image_demo'>
+            <img src='images/example.jpg' />
+          </div>
+        </section>
+
+        <section id='center_image'>
+          <h2>Center an Image within a Square</h2>
+          <img src='images/example.jpg' />
+          <div id='center_image_wrapper' class='image_demo'>
+            <img src='images/example.jpg' />
+          </div>
+        </section>
+
+        <section id='autolink'>
+          <h2>Autolink Text</h2>
+          <div id='to_autolink'>You can see my portfolio at www.mgeraci.com or http://www.michaelgeraci.com, check it out!</div>
         </section>
 
         <footer>

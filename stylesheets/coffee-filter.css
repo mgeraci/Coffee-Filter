@@ -1,0 +1,22 @@
+/* general styles */
+section{
+  margin-bottom: 40px;
+}
+
+.image_demo{
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+/* override the max-width attribute that came
+ * with this theme */
+#square_image_wrapper img{
+  max-width: none !important;
+}
+
+#center_image_wrapper{
+  background: url(../images/linen.png) repeat;
+}

@@ -16,13 +16,6 @@
 # MIT License
 
 
-# functions that should run onload
-$(->
-  hover_tags()
-  placeholder_text()
-)
-
-
 # show a tag on hover (e.g., a username when hovering over an avatar)
 # add the desired text as a data attribute on the element, e.g.:
 #   <img src='/images/avatar.png' data-hover-tag='michael geraci'>
@@ -54,6 +47,7 @@ window.hover_tags = ->
         fontSize: '13px'
         textTransform: 'lowercase'
         zIndex: 800
+        textShadow: 'none'
 
       pointer_styles =
         position: 'absolute'
@@ -103,8 +97,8 @@ window.hover_tags = ->
 # requires modernizr
 # http://webdesignerwall.com/tutorials/cross-browser-html5-placeholder-text
 window.set_placeholder_text = ->
-  return unless Modernizer?
-  unless Modernizr.input.placeholder
+  return unless window.Modernizr?
+  unless window.Modernizr.input.placeholder
     $('[placeholder]').focus(->
       input = $(this)
       if input.val() == input.attr('placeholder')
@@ -128,8 +122,7 @@ window.set_placeholder_text = ->
 # 2nd arg. is an optional function to run on change
 # 3rd arg. tells the function to focus and start watching now
 #
-# requires modernizr to put the class ie8 on <html> to keep this
-# function from running.
+# requires the class ie8 on <html> to keep this function from running.
 # based on code from http://tore.darell.no/posts/auto_expanding_textarea
 jQuery.fn.autoexpand = (on_change = false, force = false)->
   # don't run on ie8
@@ -180,10 +173,11 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
 # wrapper must have overflow: hidden
 # and a defined width and height
 jQuery.fn.square_image = ->
-  img = $(this)
-  wrapper = img.parent()
+  wrapper = $(this)
+  img = wrapper.find('img')
   w = img.width()
   h = img.height()
+
   img.css({position: 'absolute'})
 
   if w < h
