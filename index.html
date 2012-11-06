@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html>
+<!--[if lt IE 7]><html class="ie6" lang="en"><![endif]-->
+<!--[if IE 7]><html class="ie7" lang="en"><![endif]-->
+<!--[if IE 8]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]<!--><html lang="en"> <!--<![endif]-->
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -90,7 +94,33 @@
 
         <section id='autolink'>
           <h2>Autolink Text</h2>
-          <div id='to_autolink'>You can see my portfolio at www.mgeraci.com or http://www.michaelgeraci.com, check it out!</div>
+          <div id='to_autolink'>You can see my portfolio at
+            www.mgeraci.com or http://www.michaelgeraci.com, check it
+            out! This started as plain text, I promise :)</div>
+        </section>
+
+        <section id='tabindex'>
+          <h2>Custom Tabindex</h2>
+          <input type='text' class='tabindex4' />
+          <br>
+          <input type='text' class='tabindex3' />
+          <br>
+          <input type='text' class='tabindex2' />
+          <br>
+          <input type='text' class='tabindex1' />
+        </section>
+
+        <section id='outerhtml'>
+          <h2>outerHTML</h2>
+          <div id='to_outerhtml'>
+            <p>text in a paragraph tag</p>
+          </div>
+        </section>
+
+        <section id='keyboard_shortcuts'>
+          <h2>Keyboard Shortcut Checker</h2>
+          <input type='text' />
+          <textarea></textarea>
         </section>
 
         <footer>

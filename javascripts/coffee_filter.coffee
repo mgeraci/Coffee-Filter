@@ -292,7 +292,7 @@ jQuery.fn.link_urls = ()->
 # remove tabindex on all items
 # iterate through passed array of jQuery elements
 # incrementing their tabindexes
-# required underscore.js
+# requires underscore.js
 window.set_tabindex = (items)->
   $('[tabindex]').removeAttr('tabindex')
   _.each items, (item, i)->
