@@ -24,7 +24,7 @@ it wise to pick and choose which functions you'd like to use.
 Requirements
 ------------
 
-jQuery, and in some cases, modernizr
+jQuery, and in some cases, modernizr and underscore
 
 
 Thanks
