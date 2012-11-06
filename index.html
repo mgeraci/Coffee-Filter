@@ -63,51 +63,137 @@
 
         <section id='hover_tag'>
           <h2>Hover Tag</h2>
-          <img src='images/mgeraci_square.png' data-hover-tag='Michael P. Geraci'/>
+          <div class='example'>
+            <img src='images/mgeraci_square.png' data-hover-tag='Michael P. Geraci'/>
+          </div>
+          <div class='src'>
+            Hover on the image to see the effect.
+            <br>
+            <br>
+            html:
+            <pre>&lt;img data-hover-tag='Michael P. Geraci' src='images/mgeraci_square.png'/></pre>
+            Javascript:
+            <pre>hover_tags()</pre>
+          </div>
         </section>
 
         <section id='placeholder'>
           <h2>Placeholder Text</h2>
-          <input type='text' placeholder='placeholder text' />
+          <div class='example'>
+            <input type='text' placeholder='placeholder text' />
+          </div>
+          <div class='src'>
+            Just add your placeholder text as you would in html5.
+            <br>
+            <br>
+            <pre>&lt;input placeholder='placeholder text' type='text' /></pre>
+            <br>
+            To see that this works, you'll have to run a browser that doesn't support placeholder text (like IE9 or below).
+          </div>
         </section>
 
         <section id='autoexpand'>
           <h2>Autoexpanding Text Areas</h2>
-          <textarea></textarea>
+          <div class='example'>
+            <textarea placeholder='try typing here!'></textarea>
+          </div>
+          <div class='src'>
+            Call .autoexpand() on the textarea of your choice! Optionally, pass a function in to get run every time the textarea grows or shrinks.
+            <br>
+            <br>
+            <pre>$('#autoexpand textarea').autoexpand(autoexpand_notifer)</pre>
+            <span id='autoexpand_notifier'></span>
+          </div>
         </section>
 
         <section id='square_image'>
           <h2>Fill a Square with an Image</h2>
-          <img src='images/example.jpg' />
-          <div id='square_image_wrapper' class='image_demo'>
+          <div class='example'>
+            Original:
             <img src='images/example.jpg' />
+            <br>
+            New:
+            <div id='square_image_wrapper' class='image_demo'>
+              <img src='images/example.jpg' />
+            </div>
+          </div>
+          <div class='src'>
+            Put an image in a div that has a defined width and height:
+            <pre>
+&lt;div id='square_image_wrapper'>
+  &lt;img src='images/example.jpg' />
+&lt;/div></pre>
+            <br>
+            And run .square_image() on it!
+            <pre>$('#square_image_wrapper').square_image()</pre>
           </div>
         </section>
 
         <section id='center_image'>
           <h2>Center an Image within a Square</h2>
-          <img src='images/example.jpg' />
-          <div id='center_image_wrapper' class='image_demo'>
+          <div class='example'>
+            Original:
             <img src='images/example.jpg' />
+            <br>
+            New:
+            <div id='center_image_wrapper' class='image_demo'>
+              <img src='images/example.jpg' />
+            </div>
+          </div>
+          <div class='src'>
+            Put an image in a div that has a defined width and height:
+            <pre>
+&lt;div id='center_image_wrapper'>
+  &lt;img src='images/example.jpg' />
+&lt;/div></pre>
+            <br>
+            And run .center_image() on it!
+            <pre>$('#center_image_wrapper').center_image()</pre>
           </div>
         </section>
 
         <section id='autolink'>
           <h2>Autolink Text</h2>
-          <div id='to_autolink'>You can see my portfolio at
-            www.mgeraci.com or http://www.michaelgeraci.com, check it
-            out! This started as plain text, I promise :)</div>
+          <div class='example'>
+            <div id='to_autolink'>You can see my portfolio at www.mgeraci.com or http://www.michaelgeraci.com, check it out!</div>
+          </div>
+          <div class='src'>
+            Just run .link_urls() on any block of text that you want linked:
+            <pre>$('#to_autolink').link_urls()</pre>
+            <br>
+            It will only run once on a given element, so you can run it on a class and later append other elements of that class without it trying to re-link existing elements.
+          </div>
         </section>
 
         <section id='tabindex'>
           <h2>Custom Tabindex</h2>
-          <input type='text' class='tabindex4' />
-          <br>
-          <input type='text' class='tabindex3' />
-          <br>
-          <input type='text' class='tabindex2' />
-          <br>
-          <input type='text' class='tabindex1' />
+          <div class='example'>
+            <input type='text' class='tabindex4' />
+            <br>
+            <input type='text' class='tabindex3' />
+            <br>
+            <input type='text' class='tabindex2' />
+            <br>
+            <input type='text' class='tabindex1' />
+          </div>
+          <div class='src'>
+            Tap tab to see the custom tabindex in action. Useful for helping users navigate forms with the keyboard.
+            <br>
+            <br>
+            html:
+            <pre>
+&lt;input type='text' class='tabindex4' />
+&lt;input type='text' class='tabindex3' />
+&lt;input type='text' class='tabindex2' />
+&lt;input type='text' class='tabindex1' /></pre>
+            <br>In javascript, call pass an array of jQuery objects in the order that you want tabbed:
+            <pre>window.set_tabindex([
+  $('.tabindex1'),
+  $('.tabindex2'),
+  $('.tabindex3'),
+  $('.tabindex4')
+])</pre>
+          </div>
         </section>
 
         <section id='outerhtml'>

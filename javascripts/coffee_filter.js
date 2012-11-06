@@ -97,10 +97,11 @@
     if (!$('html').hasClass('ie8')) {
       elements = $(this);
       return elements.each(function(i, textarea) {
-        var interval, observer, oldValue;
+        var interval, observer, oldLines, oldValue;
         textarea = $(textarea);
         interval = null;
         oldValue = textarea.val();
+        oldLines = textarea.attr('rows') || 0;
         observer = function() {
           var char_per_line, current_length, lines, newValue, returns, _ref;
           newValue = textarea.val();
@@ -111,8 +112,11 @@
             returns = ((_ref = newValue.match(/\n/g)) != null ? _ref.length : void 0) || 0;
             textarea.attr('rows', lines + returns + 2);
             oldValue = newValue;
-            if (on_change) {
-              return on_change();
+            if (oldLines !== textarea.attr('rows')) {
+              oldLines = textarea.attr('rows');
+              if (on_change) {
+                return on_change();
+              }
             }
           }
         };
@@ -135,6 +139,10 @@
     img = wrapper.find('img');
     w = img.width();
     h = img.height();
+    wrapper.css({
+      position: 'relative',
+      overflow: 'hidden'
+    });
     img.css({
       position: 'absolute'
     });
@@ -174,6 +182,10 @@
     var h, img, margin, margin_left, margin_top, max_size, new_max, w, wrapper;
     wrapper = $(this);
     img = wrapper.find('img');
+    wrapper.css({
+      position: 'relative',
+      overflow: 'hidden'
+    });
     w = img.width();
     h = img.height();
     max_size = wrapper.height() > wrapper.width() ? wrapper.width() : wrapper.height();

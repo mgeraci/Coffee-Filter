@@ -134,6 +134,7 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
       textarea = $(textarea)
       interval = null
       oldValue = textarea.val()
+      oldLines = textarea.attr('rows') || 0
 
       # The observer function for auto textarea resizing
       observer = =>
@@ -151,8 +152,11 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
           textarea.attr('rows', lines + returns + 2)
           oldValue = newValue
 
-          # run on change function if it exists
-          on_change() if on_change
+          if oldLines != textarea.attr('rows')
+            oldLines = textarea.attr('rows')
+            
+            # run on change function if it exists
+            on_change() if on_change
 
       # When the user focuses the textarea, create the observer interval
       textarea.focus ->
@@ -178,6 +182,7 @@ jQuery.fn.square_image = ->
   w = img.width()
   h = img.height()
 
+  wrapper.css({position: 'relative', overflow: 'hidden'})
   img.css({position: 'absolute'})
 
   if w < h
@@ -204,6 +209,7 @@ jQuery.fn.square_image = ->
 jQuery.fn.center_image = ->
   wrapper = $(this)
   img = wrapper.find('img')
+  wrapper.css({position: 'relative', overflow: 'hidden'})
 
   w = img.width()
   h = img.height()
