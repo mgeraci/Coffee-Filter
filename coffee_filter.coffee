@@ -205,6 +205,48 @@ jQuery.fn.square_image = ->
   else
     img.css({width: '100%', height: '100%'})
 
+# center an image a box, keeping its original
+# aspect ratio
+jQuery.fn.center_image = ->
+  wrapper = $(this)
+  img = wrapper.find('img')
+
+  w = img.width()
+  h = img.height()
+  max_size = if wrapper.height() > wrapper.width() then wrapper.width() else wrapper.height()
+
+  # if the image is smaller than the box
+  if w <= max_size && h <= max_size
+    img.width(w)
+    img.height(h)
+    margin_top = (max_size - h) / 2
+    margin_left = (max_size - w) / 2
+    img.css({margin: "#{margin_top}px 0 0 #{margin_left}px"})
+
+  # if the image is larger than the box
+  else
+    # handle each case (w>h, h>w, w==h)
+    if w == h
+      img.width(max_size)
+      img.height(max_size)
+    else
+      if w > h
+        new_max = max_size / (w / h)
+        margin = (max_size - new_max) / 2
+        img.css({
+          width: max_size,
+          height: new_max,
+          margin: "#{margin}px 0 0 0"
+        })
+      else
+        new_max = max_size / (h / w)
+        margin = (max_size - new_max) / 2
+        img.css({
+          width: new_max,
+          height: max_size,
+          margin: "0 0 0 #{margin}px"
+        })
+
 
 ## these next two handle "save" and "done saving" states for buttons
 ## expects two data attributes for the button's text:

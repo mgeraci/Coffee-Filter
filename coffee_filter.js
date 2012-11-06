@@ -174,6 +174,47 @@
     }
   };
 
+  jQuery.fn.center_image = function() {
+    var h, img, margin, margin_left, margin_top, max_size, new_max, w, wrapper;
+    wrapper = $(this);
+    img = wrapper.find('img');
+    w = img.width();
+    h = img.height();
+    max_size = wrapper.height() > wrapper.width() ? wrapper.width() : wrapper.height();
+    if (w <= max_size && h <= max_size) {
+      img.width(w);
+      img.height(h);
+      margin_top = (max_size - h) / 2;
+      margin_left = (max_size - w) / 2;
+      return img.css({
+        margin: "" + margin_top + "px 0 0 " + margin_left + "px"
+      });
+    } else {
+      if (w === h) {
+        img.width(max_size);
+        return img.height(max_size);
+      } else {
+        if (w > h) {
+          new_max = max_size / (w / h);
+          margin = (max_size - new_max) / 2;
+          return img.css({
+            width: max_size,
+            height: new_max,
+            margin: "" + margin + "px 0 0 0"
+          });
+        } else {
+          new_max = max_size / (h / w);
+          margin = (max_size - new_max) / 2;
+          return img.css({
+            width: new_max,
+            height: max_size,
+            margin: "0 0 0 " + margin + "px"
+          });
+        }
+      }
+    }
+  };
+
   jQuery.fn.save_state = function() {
     var saving_text;
     saving_text = $(this).attr('data-saving-text');

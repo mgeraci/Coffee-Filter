@@ -8,6 +8,7 @@ Coffee Filter is a collection of coffeescript helpers I've used across projects.
 - placeholder text for browsers that don't support the html5 spec (requires
   modernizr)
 - textarea autoexpand when typing large blocks of text
+- fill a square with an image of arbitrary dimensions
 - position an image of arbitrary dimensions in a square
 - saving and default states for buttons/links when using ajax
 - autolink urls in a block of text (great for comments!)
