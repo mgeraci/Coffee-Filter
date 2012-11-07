@@ -8,7 +8,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/coffee-filter.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/main.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <script type='text/javascript' src='javascripts/jquery-1.8.2.min.js'></script>
@@ -19,7 +19,7 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <title>Coffee-filter by mgeraci</title>
+    <title>Coffee Filter, by Michael P. Geraci</title>
   </head>
 
   <body>
@@ -27,7 +27,7 @@
       <div class="inner">
 
         <header>
-          <h1>Coffee-filter</h1>
+          <h1>Coffee Filter</h1>
           <h2>Some coffeescript helpers I've used across projects</h2>
         </header>
 
@@ -109,10 +109,10 @@
         <section id='square_image'>
           <h2>Fill a Square with an Image</h2>
           <div class='example'>
-            Original:
+            Before:
             <img src='images/example.jpg' />
             <br>
-            New:
+            After:
             <div id='square_image_wrapper' class='image_demo'>
               <img src='images/example.jpg' />
             </div>
@@ -132,10 +132,10 @@
         <section id='center_image'>
           <h2>Center an Image within a Square</h2>
           <div class='example'>
-            Original:
+            Before:
             <img src='images/example.jpg' />
             <br>
-            New:
+            After:
             <div id='center_image_wrapper' class='image_demo'>
               <img src='images/example.jpg' />
             </div>
@@ -198,15 +198,34 @@
 
         <section id='outerhtml'>
           <h2>outerHTML</h2>
-          <div id='to_outerhtml'>
-            <p>text in a paragraph tag</p>
+          <div class='example'>
+            <div id='to_outerhtml'>
+              <p>this is text in a paragraph tag, wrapped with a div with id "to_outerhtml"</p>
+            </div>
+          </div>
+          <div class='src'>
+            This comes in handy sometimes. Here's .html()
+            <pre>$('#to_outerhtml').html()
+> &lt;p>this is text in a paragraph tag, wrapped with a div with id "to_outerhtml"&lt;/p>
+
+$('#to_outerhtml').html()
+> &lt;div id="to_outerhtml">&lt;p>this is text in a paragraph tag, wrapped with a div with id "to_outerhtml"&lt;/p>&lt;/div></pre>
           </div>
         </section>
 
         <section id='keyboard_shortcuts'>
           <h2>Keyboard Shortcut Checker</h2>
-          <input type='text' />
-          <textarea></textarea>
+          <div class='example'>
+            <input type='text' />
+            <textarea></textarea>
+          </div>
+          <div class='src'>
+            Keyboard shortcuts are cool! Until you're typing a form and trigger them by accident. Add a check for should_allow_keyboard_shortcuts() in your shortcut code and you're good to go - it returns <code>true</code> or <code>false</code>.
+            <br><br>
+            Give these inputs focus and see the status change...
+            <br><br>
+            <code>shortcut status is <span id='kb_status' class='go'>go</span></code>
+          </div>
         </section>
 
         <footer>

@@ -7,7 +7,6 @@ $(window).load(->
   set_center_image()
   set_autolink()
   set_tabindex()
-  set_outerhtml()
   set_kb()
 )
 
@@ -16,7 +15,7 @@ set_autoexpand = ->
 
 autoexpand_notifer = ->
   note = $('#autoexpand_notifier')
-  note.text('autoexpand just ran!')
+  note.html('<br>autoexpand just ran!')
 
   setTimeout(->
     note.text ''
@@ -39,15 +38,20 @@ set_tabindex = ->
     $('.tabindex4')
   ])
 
-set_outerhtml = ->
-  console.log $('#to_outerhtml').html()
-  console.log $('#to_outerhtml').outerHTML()
-
 set_kb = ->
   inputs = $('#keyboard_shortcuts input, #keyboard_shortcuts textarea')
 
   inputs.on 'focus', ->
-    console.log window.should_allow_keyboard_shortcuts()
+    set_kb_status window.should_allow_keyboard_shortcuts()
 
   inputs.on 'blur', ->
-    console.log window.should_allow_keyboard_shortcuts()
+    set_kb_status window.should_allow_keyboard_shortcuts()
+
+set_kb_status = (status)->
+  s = $('#kb_status')
+  s.removeClass('go').removeClass('no')
+
+  if status
+    s.addClass('go').text('go')
+  else
+    s.addClass('no').text('no go')

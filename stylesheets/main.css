@@ -5,6 +5,22 @@
   box-sizing: border-box;
 }
 
+.inner{
+  width: 800px;
+}
+
+@font-face{
+  font-family:"mgeraci-body";
+  src:url("http://www.mgeraci.com/fonts/body_bold.eot?#iefix") format("embedded-opentype"),url("http://www.mgeraci.com/fonts/body_bold.woff") format("woff"),url("http://www.mgeraci.com/fonts/body_bold.ttf") format("truetype"),url("http://www.mgeraci.com/fonts/body_bold.svg#BodyBold") format("svg");
+  font-weight:bold;
+  font-style:normal;
+}
+
+header h1{
+  font-family: mgeraci-body;
+  font-size: 65px;
+}
+
 a.button{
   width: 197px;
 }
@@ -13,6 +29,7 @@ footer{
   float: left;
   clear: both;
   width: 100%;
+  background-position: 70px 0
 }
 
 section{
@@ -28,7 +45,7 @@ section h2{
 
 section .example{
   float: left;
-  width: 30%;
+  width: 25%;
 }
 
 section .example input, textarea{
@@ -41,7 +58,7 @@ section .example input, textarea{
 
 section .src{
   float: right;
-  width: 65%;
+  width: 70%;
   padding: 10px;
   background: lightgray;
   border: 1px solid gray;
@@ -76,4 +93,13 @@ section .src pre{
 
 #center_image_wrapper{
   background: url(../images/linen.png) repeat;
+}
+
+/* keyboard shortcuts */
+#kb_status.go{
+  color: green;
+}
+
+#kb_status.no{
+  color: red;
 }
