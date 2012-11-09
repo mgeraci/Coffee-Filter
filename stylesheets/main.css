@@ -67,6 +67,7 @@ section .src{
 section .src pre{
   margin-top: 5px;
   margin-bottom: 0;
+  padding: 10px;
 }
 
 .image_demo{

@@ -14,6 +14,7 @@
     <script type='text/javascript' src='javascripts/jquery-1.8.2.min.js'></script>
     <script type='text/javascript' src='javascripts/modernizr.min.js'></script>
     <script type='text/javascript' src='javascripts/underscore-min.js'></script>
+    <script type="text/javascript" src="javascripts/jquery.syntaxhighlighter.min.js"></script>
     <script type='text/javascript' src='javascripts/coffee_filter.js'></script>
     <script type='text/javascript' src='javascripts/main.js'></script>
     <!--[if lt IE 9]>
@@ -28,7 +29,7 @@
 
         <header>
           <h1>Coffee Filter</h1>
-          <h2>Some coffeescript helpers I've used across projects</h2>
+          <h2>Coffeescript helpers for more...drinkable projects</h2>
         </header>
 
         <section id="downloads" class="clearfix">
@@ -41,22 +42,21 @@
           <article class="entry-content" itemprop="mainContentOfPage">
             <p>Coffee Filter is a collection of coffeescript helpers I've
             used across projects. I didn't make all of them and some I
-            customized, but I've credited other authors where appropriate.
-            Included are (click to view example):</p>
+            customized, but I've credited other authors where appropriate.</p>
+            <p>Special thanks to <a href='http://github.com/dtime/'>Dtime</a>, the company at which I wrote most of these.</p>
+            <p>Included are (click to view example):</p>
           </article>
           <ul>
-            <li>hover tags for showing notes on an element (e.g., a username when hovering over an avatar)</li>
-            <li>placeholder text for browsers that don't support the html5 spec (requires
-            modernizr)</li>
-            <li>textarea autoexpand when typing large blocks of text</li>
-            <li>fill a square with an image of arbitrary dimensions</li>
-            <li>position an image of arbitrary dimensions in a square</li>
-            <li>saving and default states for buttons/links when using ajax</li>
-            <li>autolink urls in a block of text (great for comments!)</li>
-            <li>set a custom tabindex on an array of items</li>
-            <li>outerHTML()</li>
-            <li>a check to see if keyboard shortcuts should be enabled (if not ie8 or
-            typing in a field)</li>
+            <li><a href='#hover_tag'>hover tags for showing notes on an element (e.g., a username when hovering over an avatar)</a></li>
+            <li><a href='#placeholder'>placeholder text for browsers that don't support the html5 spec (requires modernizr)</a></li>
+            <li><a href='#autoexpand'>textarea autoexpand when typing large blocks of text</a></li>
+            <li><a href='#square_image'>fill a square with an image of arbitrary dimensions</a></li>
+            <li><a href='#center_image'>position an image of arbitrary dimensions in a square</a></li>
+            <!--<li><a href='#'>saving and default states for buttons/links when using ajax</a></li>-->
+            <li><a href='#autolink'>autolink urls in a block of text (great for comments!)</a></li>
+            <li><a href='#tabindex'>set a custom tabindex on an array of items</a></li>
+            <li><a href='#outerhtml'>outerHTML()</a></li>
+            <li><a href='#keyboard_shortcuts'>a check to see if keyboard shortcuts should be enabled (if not ie8 or typing in a field)</a></li>
           </ul>
         </section>
 
@@ -70,9 +70,10 @@
             <br>
             <br>
             html:
-            <pre>&lt;img data-hover-tag='Michael P. Geraci' src='images/mgeraci_square.png'/></pre>
+            <pre class='highlight'>&lt;img data-hover-tag='Michael P. Geraci' src='images/mgeraci_square.png'/></pre>
+            <br>
             Javascript:
-            <pre>hover_tags()</pre>
+            <pre class='highlight'>hover_tags()</pre>
           </div>
         </section>
 
@@ -85,7 +86,7 @@
             Just add your placeholder text as you would in html5.
             <br>
             <br>
-            <pre>&lt;input placeholder='placeholder text' type='text' /></pre>
+            <pre class='highlight'>&lt;input placeholder='placeholder text' type='text' /></pre>
             <br>
             To see that this works, you'll have to run a browser that doesn't support placeholder text (like IE9 or below).
           </div>
@@ -100,7 +101,7 @@
             Call .autoexpand() on the textarea of your choice! Optionally, pass a function in to get run every time the textarea grows or shrinks.
             <br>
             <br>
-            <pre>$('#autoexpand textarea').autoexpand(autoexpand_notifer)</pre>
+            <pre class='highlight'>$('#autoexpand textarea').autoexpand(autoexpand_notifer)</pre>
             <span id='autoexpand_notifier'></span>
           </div>
         </section>
@@ -118,13 +119,13 @@
           </div>
           <div class='src'>
             Put an image in a div that has a defined width and height:
-            <pre>
+            <pre class='highlight'>
 &lt;div id='square_image_wrapper'>
   &lt;img src='images/example.jpg' />
 &lt;/div></pre>
             <br>
             And run .square_image() on it!
-            <pre>$('#square_image_wrapper').square_image()</pre>
+            <pre class='highlight'>$('#square_image_wrapper').square_image()</pre>
           </div>
         </section>
 
@@ -141,13 +142,13 @@
           </div>
           <div class='src'>
             Put an image in a div that has a defined width and height:
-            <pre>
+            <pre class='highlight'>
 &lt;div id='center_image_wrapper'>
   &lt;img src='images/example.jpg' />
 &lt;/div></pre>
             <br>
             And run .center_image() on it!
-            <pre>$('#center_image_wrapper').center_image()</pre>
+            <pre class='highlight'>$('#center_image_wrapper').center_image()</pre>
           </div>
         </section>
 
@@ -158,7 +159,7 @@
           </div>
           <div class='src'>
             Just run .link_urls() on any block of text that you want linked:
-            <pre>$('#to_autolink').link_urls()</pre>
+            <pre class='highlight'>$('#to_autolink').link_urls()</pre>
             <br>
             It will only run once on a given element, so you can run it on a class and later append other elements of that class without it trying to re-link existing elements.
           </div>
@@ -180,13 +181,13 @@
             <br>
             <br>
             html:
-            <pre>
+            <pre class='highlight'>
 &lt;input type='text' class='tabindex4' />
 &lt;input type='text' class='tabindex3' />
 &lt;input type='text' class='tabindex2' />
 &lt;input type='text' class='tabindex1' /></pre>
             <br>In javascript, call pass an array of jQuery objects in the order that you want tabbed:
-            <pre>window.set_tabindex([
+            <pre class='highlight'>window.set_tabindex([
   $('.tabindex1'),
   $('.tabindex2'),
   $('.tabindex3'),
@@ -203,12 +204,13 @@
             </div>
           </div>
           <div class='src'>
-            This comes in handy sometimes. Here's .html()
-            <pre>$('#to_outerhtml').html()
-> &lt;p>this is text in a paragraph tag, wrapped with a div with id "to_outerhtml"&lt;/p>
-
-$('#to_outerhtml').html()
-> &lt;div id="to_outerhtml">&lt;p>this is text in a paragraph tag, wrapped with a div with id "to_outerhtml"&lt;/p>&lt;/div></pre>
+            This comes in handy sometimes. Here's .html():
+            <pre class='highlight'>$('#to_outerhtml').html()</pre>
+            <pre class='highlight'>&lt;p>this is text in a paragraph tag, wrapped with a div with id "to_outerhtml"&lt;/p></pre>
+            <br>
+            And here's .outerHTML():
+            <pre class='highlight'>$('#to_outerhtml').html()</pre>
+            <pre class='highlight'>&lt;div id="to_outerhtml">&lt;p>this is text in a paragraph tag, wrapped with a div with id "to_outerhtml"&lt;/p>&lt;/div></pre>
           </div>
         </section>
 

@@ -77,11 +77,12 @@ header h1 {
 }
 
 header h2 {
-  letter-spacing: -1px;
+  position: relative;
+  left: 6px;
   font-size: 24px;
-  color: #aaa;
+  color: #bbb;
   font-weight: normal;
-  line-height: 1.3;
+  line-height: 0;
 }
 
 #container {
@@ -99,13 +100,14 @@ header h2 {
 }
 
 #downloads {
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 
 a.button {
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;                     
-  border-radius: 30px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;                     
+  border-radius: 5px;
   border-top: solid 1px #cbcbcb;
   border-left: solid 1px #b7b7b7;
   border-right: solid 1px #b7b7b7;

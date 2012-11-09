@@ -1,5 +1,14 @@
 # functions that should run on load
 $(window).load(->
+  # load syntax highlighting
+  $.SyntaxHighlighter.init({
+    wrapLines: false
+    lineNumbers: false
+    theme: 'sunburst'
+    themes: ['sunburst']
+    baseUrl: window.location.origin
+  })
+
   hover_tags()
   set_placeholder_text()
   set_autoexpand()

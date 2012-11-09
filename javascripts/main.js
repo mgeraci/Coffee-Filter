@@ -3,6 +3,13 @@
   var autoexpand_notifer, set_autoexpand, set_autolink, set_center_image, set_kb, set_kb_status, set_square_image, set_tabindex;
 
   $(window).load(function() {
+    $.SyntaxHighlighter.init({
+      wrapLines: false,
+      lineNumbers: false,
+      theme: 'sunburst',
+      themes: ['sunburst'],
+      baseUrl: window.location.origin
+    });
     hover_tags();
     set_placeholder_text();
     set_autoexpand();
