@@ -14,6 +14,7 @@ $(window).load(->
   set_autoexpand()
   set_square_image()
   set_center_image()
+  set_ajax_button()
   set_autolink()
   set_tabindex()
   set_kb()
@@ -35,6 +36,17 @@ set_square_image = ->
 
 set_center_image = ->
   $('#center_image_wrapper').center_image()
+
+set_ajax_button = ->
+  window.set_original_text()
+
+  $('.fancy_button').on 'click', (e)->
+    e.preventDefault()
+    $(this).save_state()
+
+    setTimeout(=>
+      $(this).unsave_state()
+    , 1500)
 
 set_autolink = ->
   $('#to_autolink').link_urls()

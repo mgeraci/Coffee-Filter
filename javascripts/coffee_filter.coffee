@@ -252,6 +252,16 @@ jQuery.fn.center_image = ->
 ## expects two data attributes for the button's text:
 ## 'data-original-text' and 'data-saving-text'
 
+# optionally, you can run set_original_text() to reduce repetition
+# in your markup. it will look for the data-original-text attribute
+# and fill in the text/value of the element if not already present.
+window.set_original_text = ->
+  $('[data-original-text]').each ->
+    if $(this).is('a')
+      $(this).text $(this).data('original-text') unless $(this).text() != ''
+    else
+      $(this).val $(this).data('original-text') unless $(this).val() != ''
+
 # begin save state
 jQuery.fn.save_state = ->
   saving_text = $(this).attr('data-saving-text')
@@ -263,12 +273,12 @@ jQuery.fn.save_state = ->
 
 # return to default state
 jQuery.fn.unsave_state = ->
-  saving_text = $(this).attr('data-original-text')
-  $(this).addClass('saving').css({opacity: 0.5})
+  original_text = $(this).attr('data-original-text')
+  $(this).removeClass('saving').css({opacity: 1})
   if $(this).is('a')
-    $(this).text(saving_text)
+    $(this).text(original_text)
   else
-    $(this).val(saving_text)
+    $(this).val(original_text)
 
 
 # replace text links with html links in a block of text

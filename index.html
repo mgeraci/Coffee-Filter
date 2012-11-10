@@ -52,7 +52,7 @@
             <li><a href='#autoexpand'>textarea autoexpand when typing large blocks of text</a></li>
             <li><a href='#square_image'>fill a square with an image of arbitrary dimensions</a></li>
             <li><a href='#center_image'>position an image of arbitrary dimensions in a square</a></li>
-            <!--<li><a href='#'>saving and default states for buttons/links when using ajax</a></li>-->
+            <li><a href='#ajax_button'>saving and default states for buttons/links when using ajax</a></li>
             <li><a href='#autolink'>autolink urls in a block of text (great for comments!)</a></li>
             <li><a href='#tabindex'>set a custom tabindex on an array of items</a></li>
             <li><a href='#outerhtml'>outerHTML()</a></li>
@@ -152,6 +152,30 @@
           </div>
         </section>
 
+        <section id='ajax_button'>
+          <h2>Saving State for Ajax Forms</h2>
+          <div class='example'>
+            <a class='fancy_button' data-original-text='click to save' data-saving-text='saving...' href='#'></a>
+          </div>
+          <div class='src'>
+            Saving a form via ajax? Want to give the user some feedback? Click the button to the left to see how it looks.
+            <br>
+            <br>Set two data attributes on the html, original-text and saving-text:
+            <pre class='highlight'>&lt;a href='#' class='fancy_button' data-original-text='click to save' data-saving-text='saving...'>&lt;/a></pre>
+            <br>Note that there's no text in the anchor tag; it's only in the attribute. So on load, run this function, which goes through the buttons that have the original-text attribute and sets the text:
+            <pre class='highlight'>window.set_original_text()</pre>
+            <br>Then you can call this function on click:
+            <pre class='highlight'>$('.fancy_button').click(function(){
+  $(this).save_state();
+})</pre>
+            <br>And to get it back to normal, just run:
+            <pre class='highlight'>$('.fancy_button').unsave_state();</pre>
+            <br>Consider adding styles to the .saving class on your button to remove any hover or click states that you might have on your button.
+            <br>
+            <br>p.s. - it works with both anchor and button tags.
+          </div>
+        </section>
+
         <section id='autolink'>
           <h2>Autolink Text</h2>
           <div class='example'>
@@ -162,6 +186,8 @@
             <pre class='highlight'>$('#to_autolink').link_urls()</pre>
             <br>
             It will only run once on a given element, so you can run it on a class and later append other elements of that class without it trying to re-link existing elements.
+            <br>
+            <br>The regex used does a pretty good job, but only catches urls that start with http:// or www.
           </div>
         </section>
 
@@ -221,8 +247,9 @@
             <textarea></textarea>
           </div>
           <div class='src'>
-            Keyboard shortcuts are cool! Until you're typing a form and trigger them by accident. Add a check for should_allow_keyboard_shortcuts() in your shortcut code and you're good to go - it returns <code>true</code> or <code>false</code>.
-            <br><br>
+            Keyboard shortcuts are cool! Until you're typing a form and trigger them by accident. In the code for your keyboard shortcuts, add a this check:
+            <pre class='highlight'>window.should_allow_keyboard_shortcuts()</pre>
+            <br>
             Give these inputs focus and see the status change...
             <br><br>
             <code>shortcut status is <span id='kb_status' class='go'>go</span></code>
