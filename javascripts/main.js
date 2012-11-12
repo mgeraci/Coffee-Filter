@@ -8,7 +8,7 @@
       lineNumbers: false,
       theme: 'sunburst',
       themes: ['sunburst'],
-      baseUrl: window.location.origin
+      baseUrl: "" + window.location.origin + (window.location.origin.match('github') ? '/Coffe-Filter' : '')
     });
     hover_tags();
     set_placeholder_text();
