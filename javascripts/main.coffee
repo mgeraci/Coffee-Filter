@@ -6,7 +6,7 @@ $(window).load(->
     lineNumbers: false
     theme: 'sunburst'
     themes: ['sunburst']
-    baseUrl: "#{window.location.origin}#{if window.location.origin.match('github') then '/Coffe-Filter' else ''}"
+    baseUrl: "#{window.location.origin}#{if window.location.origin.match('github') then '/Coffee-Filter' else ''}"
   })
 
   hover_tags()
