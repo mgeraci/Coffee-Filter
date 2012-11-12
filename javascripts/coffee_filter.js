@@ -243,23 +243,35 @@
     $(this).addClass('saving').css({
       opacity: 0.5
     });
-    if ($(this).is('a')) {
-      return $(this).text(saving_text);
-    } else {
-      return $(this).val(saving_text);
-    }
+    return $(this).set_button_text(saving_text);
   };
 
   jQuery.fn.unsave_state = function() {
-    var original_text;
+    var original_text, saved_text,
+      _this = this;
     original_text = $(this).attr('data-original-text');
-    $(this).removeClass('saving').css({
-      opacity: 1
-    });
-    if ($(this).is('a')) {
-      return $(this).text(original_text);
+    saved_text = $(this).attr('data-saved-text');
+    if (saved_text) {
+      $(this).set_button_text(saved_text);
+      return setTimeout(function() {
+        $(_this).removeClass('saving').css({
+          opacity: 1
+        });
+        return $(_this).set_button_text(original_text);
+      }, 1000);
     } else {
-      return $(this).val(original_text);
+      $(this).removeClass('saving').css({
+        opacity: 1
+      });
+      return $(this).set_button_text(original_text);
+    }
+  };
+
+  jQuery.fn.set_button_text = function(text) {
+    if ($(this).is('a')) {
+      return $(this).text(text);
+    } else {
+      return $(this).val(text);
     }
   };
 

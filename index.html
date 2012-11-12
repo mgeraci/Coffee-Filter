@@ -155,24 +155,27 @@
         <section id='ajax_button'>
           <h2>Saving State for Ajax Forms</h2>
           <div class='example'>
-            <a class='fancy_button' data-original-text='click to save' data-saving-text='saving...' href='#'></a>
+            <a class='fancy_button' data-original-text='click to save' data-saving-text='saving...' data-saved-text='saved!' href='#'></a>
           </div>
           <div class='src'>
             Saving a form via ajax? Want to give the user some feedback? Click the button to the left to see how it looks.
             <br>
-            <br>Set two data attributes on the html, original-text and saving-text:
-            <pre class='highlight'>&lt;a href='#' class='fancy_button' data-original-text='click to save' data-saving-text='saving...'>&lt;/a></pre>
+            <br>It works by setting data attributes on your link or button:
+            <ul>
+              <li>data-original-text: what the button or link will display</li>
+              <li>data-saving-text: the text to display while saving</li>
+              <li>data-saved-text: optional, if present it shows for 1 second before reverting to the original text</li>
+            </li>
+            <pre class='highlight'>&lt;a href='#' class='fancy_button' data-original-text='click to save' data-saving-text='saving...' data-saved-text='saved!'>&lt;/a></pre>
             <br>Note that there's no text in the anchor tag; it's only in the attribute. So on load, run this function, which goes through the buttons that have the original-text attribute and sets the text:
             <pre class='highlight'>window.set_original_text()</pre>
             <br>Then you can call this function on click:
             <pre class='highlight'>$('.fancy_button').click(function(){
   $(this).save_state();
 })</pre>
-            <br>And to get it back to normal, just run:
+            <br>And to get it back to normal, just run this function, maybe in the success callback of your ajax request:
             <pre class='highlight'>$('.fancy_button').unsave_state();</pre>
             <br>Consider adding styles to the .saving class on your button to remove any hover or click states that you might have on your button.
-            <br>
-            <br>p.s. - it works with both anchor and button tags.
           </div>
         </section>
 

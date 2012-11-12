@@ -154,7 +154,7 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
 
           if oldLines != textarea.attr('rows')
             oldLines = textarea.attr('rows')
-            
+
             # run on change function if it exists
             on_change() if on_change
 
@@ -266,20 +266,32 @@ window.set_original_text = ->
 jQuery.fn.save_state = ->
   saving_text = $(this).attr('data-saving-text')
   $(this).addClass('saving').css({opacity: 0.5})
-  if $(this).is('a')
-    $(this).text(saving_text)
-  else
-    $(this).val(saving_text)
+  $(this).set_button_text saving_text
 
 # return to default state
 jQuery.fn.unsave_state = ->
   original_text = $(this).attr('data-original-text')
-  $(this).removeClass('saving').css({opacity: 1})
-  if $(this).is('a')
-    $(this).text(original_text)
-  else
-    $(this).val(original_text)
+  saved_text = $(this).attr('data-saved-text')
 
+
+  # either show the saved note and then the original text
+  # or just the original text
+  if saved_text
+    $(this).set_button_text saved_text
+    setTimeout(=>
+      $(this).removeClass('saving').css({opacity: 1})
+      $(this).set_button_text original_text
+    , 1000)
+  else
+    $(this).removeClass('saving').css({opacity: 1})
+    $(this).set_button_text original_text
+
+# set the text on an anchor or button tag
+jQuery.fn.set_button_text = (text)->
+  if $(this).is('a')
+    $(this).text text
+  else
+    $(this).val text
 
 # replace text links with html links in a block of text
 jQuery.fn.link_urls = ()->
