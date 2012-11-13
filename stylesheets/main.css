@@ -90,19 +90,14 @@ section .src pre{
 }
 
 .image_demo{
-  width: 150px;
-  height: 150px;
+  width: 136px;
+  height: 136px;
   border: 1px solid black;
 }
 
 /* hover tag */
 #hover_tag img{
   border: 1px solid black;
-}
-
-/* autoexpand */
-#autoexpand_notifier{
-  color: red;
 }
 
 /* override the max-width attribute that came

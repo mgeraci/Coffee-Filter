@@ -287,7 +287,7 @@
 
   window.set_tabindex = function(items) {
     $('[tabindex]').removeAttr('tabindex');
-    return _.each(items, function(item, i) {
+    return $.each(items, function(i, item) {
       return $(item).attr('tabindex', i + 1);
     });
   };

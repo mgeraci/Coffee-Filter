@@ -25,10 +25,10 @@ set_autoexpand = ->
 
 autoexpand_notifer = ->
   note = $('#autoexpand_notifier')
-  note.html('<br>autoexpand just ran!')
+  note.html('<span style="color: red">autoexpand just ran!</span>')
 
   setTimeout(->
-    note.text ''
+    note.text 'this text will change when autoexpand runs'
   , 1000)
 
 set_square_image = ->

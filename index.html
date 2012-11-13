@@ -14,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="./stylesheets/print.css" media="print" />
     <script type='text/javascript' src='./javascripts/jquery-1.8.2.min.js'></script>
     <script type='text/javascript' src='./javascripts/modernizr.min.js'></script>
-    <script type='text/javascript' src='./javascripts/underscore-min.js'></script>
     <script type="text/javascript" src="./javascripts/jquery.syntaxhighlighter.min.js"></script>
     <script type='text/javascript' src='./javascripts/coffee_filter.js'></script>
     <script type='text/javascript' src='./javascripts/main.js'></script>
@@ -45,12 +44,12 @@
             <p>Coffee Filter is a collection of coffeescript helpers I've
             used across projects. I didn't make all of them and some I
             customized, but I've credited other authors where appropriate.</p>
-            <p>Special thanks to <a href='http://github.com/dtime/'>Dtime</a>, the company at which I wrote most of these.</p>
-            <p>Included are (click to view example):</p>
+            <p>Special thanks to <strong>Reachably</strong> (<a href='http://reachably.com' target='_blank'>website</a>, <a href='http://github.com/dtime/' target='_blank'>github</a>), the company at which I wrote most of these.</p>
+            <p>Included are (click to skip to examples):</p>
           </article>
           <ul>
             <li><a href='#hover_tag'>hover tags for showing notes on an element (e.g., a username when hovering over an avatar)</a></li>
-            <li><a href='#placeholder'>placeholder text for browsers that don't support the html5 spec (requires modernizr)</a></li>
+            <li><a href='#placeholder'>placeholder text for browsers that don't support the html5 spec
             <li><a href='#autoexpand'>textarea autoexpand when typing large blocks of text</a></li>
             <li><a href='#square_image'>fill a square with an image of arbitrary dimensions</a></li>
             <li><a href='#center_image'>position an image of arbitrary dimensions in a square</a></li>
@@ -83,29 +82,33 @@
         <section id='placeholder'>
           <h2>Placeholder Text</h2>
           <div class='example'>
+            This placeholder text will show up even in browsers that don't support the html5 placeholder attribute.
             <input type='text' placeholder='placeholder text' />
           </div>
           <div class='src'>
-            Just add your placeholder text as you would in html5.
+            Some older browsers don't support the html5 placeholder text spec. This function adds support for these older browsers. Just add your placeholder text as you would in html5.
             <br>
             <br>
             <pre class='highlight'>&lt;input placeholder='placeholder text' type='text' /></pre>
             <br>
-            To see that this works, you'll have to run a browser that doesn't support placeholder text (like IE9 or below).
+            And on page load, run:
+            <pre class='highlight'>window.set_placeholder_text()</pre>
+            <br>(this requires modernizr)
           </div>
         </section>
 
         <section id='autoexpand'>
           <h2>Autoexpanding Text Areas</h2>
           <div class='example'>
-            <textarea placeholder='try typing here!'></textarea>
+            <textarea placeholder='try typing here!' rows='2'></textarea>
           </div>
           <div class='src'>
-            Call .autoexpand() on the textarea of your choice! Optionally, pass a function in to get run every time the textarea grows or shrinks.
+            Call .autoexpand() on the textarea of your choice! Optionally, pass a function in to get run every time the textarea grows or shrinks. And if you pass <code>true</code> as a third argument, the textarea will be given focus.
             <br>
             <br>
             <pre class='highlight'>$('#autoexpand textarea').autoexpand(autoexpand_notifer)</pre>
-            <span id='autoexpand_notifier'></span>
+            <br>
+            <code id='autoexpand_notifier'>this text will change when autoexpand runs</code>
           </div>
         </section>
 
@@ -121,7 +124,7 @@
             </div>
           </div>
           <div class='src'>
-            Put an image in a div that has a defined width and height:
+            If you have an image of unknown dimensions and would like to present it as a thumbnail, stick it in a div of defined width and height:
             <pre class='highlight'>
 &lt;div id='square_image_wrapper'>
   &lt;img src='images/example.jpg' />
@@ -144,7 +147,7 @@
             </div>
           </div>
           <div class='src'>
-            Put an image in a div that has a defined width and height:
+            Similar to the above, if you'd like to display an image of unknown size but maintain its aspect ratio, stick it in a div of defined width and height:
             <pre class='highlight'>
 &lt;div id='center_image_wrapper'>
   &lt;img src='images/example.jpg' />
@@ -182,10 +185,10 @@
         <section id='autolink'>
           <h2>Autolink Text</h2>
           <div class='example'>
-            <div id='to_autolink'>You can see my portfolio at www.mgeraci.com or http://www.michaelgeraci.com, check it out!</div>
+            <div id='to_autolink'>This text had no links in it before javascript ran. You can see my portfolio at www.mgeraci.com or http://www.michaelgeraci.com, check it out!</div>
           </div>
           <div class='src'>
-            Just run .link_urls() on any block of text that you want linked:
+            If you have a block of text that may have links written out in it, you can run .link_urls() on it to find the links and add anchor tags. We use it on user-supplied comments.
             <pre class='highlight'>$('#to_autolink').link_urls()</pre>
             <br>
             It will only run once on a given element, so you can run it on a class and later append other elements of that class without it trying to re-link existing elements.
@@ -197,6 +200,9 @@
         <section id='tabindex'>
           <h2>Custom Tabindex</h2>
           <div class='example'>
+            Tap tab to see the custom tabindex in action (make sure no inputs have focus). It's the reverse of what the default would be.
+            <br>
+            <br>
             <input type='text' class='tabindex4' />
             <br>
             <input type='text' class='tabindex3' />
@@ -206,15 +212,8 @@
             <input type='text' class='tabindex1' />
           </div>
           <div class='src'>
-            Tap tab to see the custom tabindex in action. Useful for helping users navigate comple forms with the keyboard.
+            There's an html attribute for controlling the tabindex on forms, but it can be useful to override what's present in the html (e.g., if you load a form in via ajax).
             <br>
-            <br>
-            html:
-            <pre class='highlight'>
-&lt;input type='text' class='tabindex4' />
-&lt;input type='text' class='tabindex3' />
-&lt;input type='text' class='tabindex2' />
-&lt;input type='text' class='tabindex1' /></pre>
             <br>In javascript, call pass an array of jQuery objects in the order that you want tabbed:
             <pre class='highlight'>window.set_tabindex([
   $('.tabindex1'),
@@ -222,6 +221,12 @@
   $('.tabindex3'),
   $('.tabindex4')
 ])</pre>
+            <br>html:
+            <pre class='highlight'>
+&lt;input type='text' class='tabindex4' />
+&lt;input type='text' class='tabindex3' />
+&lt;input type='text' class='tabindex2' />
+&lt;input type='text' class='tabindex1' /></pre>
           </div>
         </section>
 
@@ -255,7 +260,7 @@
             </select>
           </div>
           <div class='src'>
-            Keyboard shortcuts are cool! Until you're typing a form and trigger them by accident. In the code for your keyboard shortcuts, add a this check:
+            Keyboard shortcuts are cool! ...Until you're typing a form and trigger them by accident. In the code for your keyboard shortcuts, add this check:
             <pre class='highlight'>window.should_allow_keyboard_shortcuts()</pre>
             <br>
             Give these inputs focus and see the status change...

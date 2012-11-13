@@ -197,13 +197,15 @@ jQuery.fn.square_image = ->
   # get the amount of the image to offset it by
   percent = (((larger - smaller) / 2) * 100 / larger * -1) / 100
 
-  if h > w
+  # make the smaller dimension 100% and the other auto
+  # and position the image in the center
+  if h > w # portrait
     img.css({width: '100%', height: 'auto'})
     img.css({top: Math.floor(percent * img.height())})
-  else if h < w
+  else if h < w # landscape
     img.css({width: 'auto', height: '100%'})
     img.css({left: Math.floor(percent * img.width())})
-  else
+  else # square
     img.css({width: '100%', height: '100%'})
 
 # center an image a box, keeping its original
@@ -269,7 +271,6 @@ jQuery.fn.unsave_state = ->
   original_text = $(this).attr('data-original-text')
   saved_text = $(this).attr('data-saved-text')
 
-
   # either show the saved note and then the original text
   # or just the original text
   if saved_text
@@ -316,10 +317,9 @@ jQuery.fn.link_urls = ()->
 # remove tabindex on all items
 # iterate through passed array of jQuery elements
 # incrementing their tabindexes
-# requires underscore.js
 window.set_tabindex = (items)->
   $('[tabindex]').removeAttr('tabindex')
-  _.each items, (item, i)->
+  $.each items, (i, item)->
     $(item).attr('tabindex', i+1)
 
 # get the html of an object, including its wrapper

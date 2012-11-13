@@ -28,9 +28,9 @@
   autoexpand_notifer = function() {
     var note;
     note = $('#autoexpand_notifier');
-    note.html('<br>autoexpand just ran!');
+    note.html('<span style="color: red">autoexpand just ran!</span>');
     return setTimeout(function() {
-      return note.text('');
+      return note.text('this text will change when autoexpand runs');
     }, 1000);
   };
 
