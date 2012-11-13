@@ -19,6 +19,8 @@
 # show a tag on hover (e.g., a username when hovering over an avatar)
 # add the desired text as a data attribute on the element, e.g.:
 #   <img src='/images/avatar.png' data-hover-tag='michael geraci'>
+#   optionally, add data-hover-tag-top and/or data-hover-tag-left
+#   to override the default offset
 window.hover_tags = ->
   $('body').on 'mouseover', '[data-hover-tag]', (e)->
     target = $(this).closest('[data-hover-tag]')
@@ -77,11 +79,12 @@ window.hover_tags = ->
     top_offset = 8
     left_offset = 0
 
-    # here's a good place to put conditionals for special cases
-    # you can override top_offset and left_offset, for example:
-    # if $(this).hasClass('questions_item_image')
-    #  top_offset = 11
-    #  left_offset = -1
+    # look into data attributes to override the default offset
+    if target.data('hover-tag-top')
+      top_offset = target.data('hover-tag-top')
+
+    if target.data('hover-tag-left')
+      left_offset = target.data('hover-tag-left')
 
     # position and show the tag
     tag.css(
@@ -174,8 +177,7 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
 
 # given an image of arbitrary dimensions,
 # center it within a square wrapper
-# wrapper must have overflow: hidden
-# and a defined width and height
+# wrapper must have a defined width and height
 jQuery.fn.square_image = ->
   wrapper = $(this)
   img = wrapper.find('img')

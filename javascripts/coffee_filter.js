@@ -43,6 +43,12 @@
       tag.find('.text').html(name);
       top_offset = 8;
       left_offset = 0;
+      if (target.data('hover-tag-top')) {
+        top_offset = target.data('hover-tag-top');
+      }
+      if (target.data('hover-tag-left')) {
+        left_offset = target.data('hover-tag-left');
+      }
       return tag.css({
         top: position.top + target.outerHeight() + top_offset,
         left: position.left - tag.outerWidth() / 2 + target.width() / 2 + left_offset
