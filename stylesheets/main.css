@@ -32,7 +32,7 @@ header h1{
 header img{
   position: absolute;
   right: 80px;
-  top: 10px;
+  top: 15px;
   width: 200px;
   z-index: 1;
 }
