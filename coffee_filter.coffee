@@ -16,16 +16,11 @@
 # MIT License
 
 
-# functions that should run onload
-$(->
-  hover_tags()
-  placeholder_text()
-)
-
-
 # show a tag on hover (e.g., a username when hovering over an avatar)
 # add the desired text as a data attribute on the element, e.g.:
 #   <img src='/images/avatar.png' data-hover-tag='michael geraci'>
+#   optionally, add data-hover-tag-top and/or data-hover-tag-left
+#   to override the default offset
 window.hover_tags = ->
   $('body').on 'mouseover', '[data-hover-tag]', (e)->
     target = $(this).closest('[data-hover-tag]')
@@ -54,6 +49,7 @@ window.hover_tags = ->
         fontSize: '13px'
         textTransform: 'lowercase'
         zIndex: 800
+        textShadow: 'none'
 
       pointer_styles =
         position: 'absolute'
@@ -83,11 +79,12 @@ window.hover_tags = ->
     top_offset = 8
     left_offset = 0
 
-    # here's a good place to put conditionals for special cases
-    # you can override top_offset and left_offset, for example:
-    # if $(this).hasClass('questions_item_image')
-    #  top_offset = 11
-    #  left_offset = -1
+    # look into data attributes to override the default offset
+    if target.data('hover-tag-top')
+      top_offset = target.data('hover-tag-top')
+
+    if target.data('hover-tag-left')
+      left_offset = target.data('hover-tag-left')
 
     # position and show the tag
     tag.css(
@@ -103,8 +100,8 @@ window.hover_tags = ->
 # requires modernizr
 # http://webdesignerwall.com/tutorials/cross-browser-html5-placeholder-text
 window.set_placeholder_text = ->
-  return unless Modernizer?
-  unless Modernizr.input.placeholder
+  return unless window.Modernizr?
+  unless window.Modernizr.input.placeholder
     $('[placeholder]').focus(->
       input = $(this)
       if input.val() == input.attr('placeholder')
@@ -128,8 +125,7 @@ window.set_placeholder_text = ->
 # 2nd arg. is an optional function to run on change
 # 3rd arg. tells the function to focus and start watching now
 #
-# requires modernizr to put the class ie8 on <html> to keep this
-# function from running.
+# requires the class ie8 on <html> to keep this function from running.
 # based on code from http://tore.darell.no/posts/auto_expanding_textarea
 jQuery.fn.autoexpand = (on_change = false, force = false)->
   # don't run on ie8
@@ -141,6 +137,7 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
       textarea = $(textarea)
       interval = null
       oldValue = textarea.val()
+      oldLines = textarea.attr('rows') || 0
 
       # The observer function for auto textarea resizing
       observer = =>
@@ -158,8 +155,11 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
           textarea.attr('rows', lines + returns + 2)
           oldValue = newValue
 
-          # run on change function if it exists
-          on_change() if on_change
+          if oldLines != textarea.attr('rows')
+            oldLines = textarea.attr('rows')
+
+            # run on change function if it exists
+            on_change() if on_change
 
       # When the user focuses the textarea, create the observer interval
       textarea.focus ->
@@ -177,13 +177,14 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
 
 # given an image of arbitrary dimensions,
 # center it within a square wrapper
-# wrapper must have overflow: hidden
-# and a defined width and height
+# wrapper must have a defined width and height
 jQuery.fn.square_image = ->
-  img = $(this)
-  wrapper = img.parent()
+  wrapper = $(this)
+  img = wrapper.find('img')
   w = img.width()
   h = img.height()
+
+  wrapper.css({position: 'relative', overflow: 'hidden'})
   img.css({position: 'absolute'})
 
   if w < h
@@ -196,13 +197,15 @@ jQuery.fn.square_image = ->
   # get the amount of the image to offset it by
   percent = (((larger - smaller) / 2) * 100 / larger * -1) / 100
 
-  if h > w
+  # make the smaller dimension 100% and the other auto
+  # and position the image in the center
+  if h > w # portrait
     img.css({width: '100%', height: 'auto'})
     img.css({top: Math.floor(percent * img.height())})
-  else if h < w
+  else if h < w # landscape
     img.css({width: 'auto', height: '100%'})
     img.css({left: Math.floor(percent * img.width())})
-  else
+  else # square
     img.css({width: '100%', height: '100%'})
 
 # center an image a box, keeping its original
@@ -210,6 +213,7 @@ jQuery.fn.square_image = ->
 jQuery.fn.center_image = ->
   wrapper = $(this)
   img = wrapper.find('img')
+  wrapper.css({position: 'relative', overflow: 'hidden'})
 
   w = img.width()
   h = img.height()
@@ -249,27 +253,42 @@ jQuery.fn.center_image = ->
 
 
 ## these next two handle "save" and "done saving" states for buttons
-## expects two data attributes for the button's text:
-## 'data-original-text' and 'data-saving-text'
+## expects a data attribute for the button's text: 'data-saving-text'
+## optionally, you can add 'data-saved-text' to show a message when
+## you call unsave_state
 
 # begin save state
 jQuery.fn.save_state = ->
+  # set the current text to the original-text data attribute
+  $(this).attr('data-original-text', if $(this).is('a') then $(this).text() else $(this).val())
+
   saving_text = $(this).attr('data-saving-text')
   $(this).addClass('saving').css({opacity: 0.5})
-  if $(this).is('a')
-    $(this).text(saving_text)
-  else
-    $(this).val(saving_text)
+  $(this).set_button_text saving_text
 
 # return to default state
 jQuery.fn.unsave_state = ->
-  saving_text = $(this).attr('data-original-text')
-  $(this).addClass('saving').css({opacity: 0.5})
-  if $(this).is('a')
-    $(this).text(saving_text)
-  else
-    $(this).val(saving_text)
+  original_text = $(this).attr('data-original-text')
+  saved_text = $(this).attr('data-saved-text')
 
+  # either show the saved note and then the original text
+  # or just the original text
+  if saved_text
+    $(this).set_button_text saved_text
+    setTimeout(=>
+      $(this).removeClass('saving').css({opacity: 1})
+      $(this).set_button_text original_text
+    , 1000)
+  else
+    $(this).removeClass('saving').css({opacity: 1})
+    $(this).set_button_text original_text
+
+# set the text on an anchor or button tag
+jQuery.fn.set_button_text = (text)->
+  if $(this).is('a')
+    $(this).text text
+  else
+    $(this).val text
 
 # replace text links with html links in a block of text
 jQuery.fn.link_urls = ()->
@@ -282,7 +301,7 @@ jQuery.fn.link_urls = ()->
       (?:\([-A-Z0-9+&@\#/%=~_|$?!:,.]*\)|[A-Z0-9+&@\#/%=~_|$])
       ///ig
 
-      _($(this).text().match(exp)).each (url)=>
+      for url in $(this).text().match exp
         # add a protocol if it just starts with www
         href = if url.match(/^www.+/) then "http://#{url}" else url
 
@@ -298,10 +317,9 @@ jQuery.fn.link_urls = ()->
 # remove tabindex on all items
 # iterate through passed array of jQuery elements
 # incrementing their tabindexes
-# required underscore.js
 window.set_tabindex = (items)->
   $('[tabindex]').removeAttr('tabindex')
-  _.each items, (item, i)->
+  $.each items, (i, item)->
     $(item).attr('tabindex', i+1)
 
 # get the html of an object, including its wrapper
