@@ -223,20 +223,6 @@
     }
   };
 
-  window.set_original_text = function() {
-    return $('[data-original-text]').each(function() {
-      if ($(this).is('a')) {
-        if ($(this).text() === '') {
-          return $(this).text($(this).data('original-text'));
-        }
-      } else {
-        if ($(this).val() === '') {
-          return $(this).val($(this).data('original-text'));
-        }
-      }
-    });
-  };
-
   jQuery.fn.save_state = function() {
     var saving_text;
     $(this).attr('data-original-text', $(this).is('a') ? $(this).text() : $(this).val());

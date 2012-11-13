@@ -249,18 +249,9 @@ jQuery.fn.center_image = ->
 
 
 ## these next two handle "save" and "done saving" states for buttons
-## expects two data attributes for the button's text:
-## 'data-original-text' and 'data-saving-text'
-
-# optionally, you can run set_original_text() to reduce repetition
-# in your markup. it will look for the data-original-text attribute
-# and fill in the text/value of the element if not already present.
-window.set_original_text = ->
-  $('[data-original-text]').each ->
-    if $(this).is('a')
-      $(this).text $(this).data('original-text') unless $(this).text() != ''
-    else
-      $(this).val $(this).data('original-text') unless $(this).val() != ''
+## expects a data attribute for the button's text: 'data-saving-text'
+## optionally, you can add 'data-saved-text' to show a message when
+## you call unsave_state
 
 # begin save state
 jQuery.fn.save_state = ->
