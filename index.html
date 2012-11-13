@@ -235,12 +235,12 @@
             </div>
           </div>
           <div class='src'>
-            This comes in handy sometimes. Here's .html():
+            When using a jQuery selector, sometimes it's handy to get not just the content, but the element itself. Here's the output of .html():
             <pre class='highlight'>$('#to_outerhtml').html()</pre>
             <pre class='highlight'>&lt;p>this is text in a paragraph tag, wrapped with a div with id "to_outerhtml"&lt;/p></pre>
             <br>
-            And here's .outerHTML():
-            <pre class='highlight'>$('#to_outerhtml').html()</pre>
+            But with .outerHTML() you get:
+            <pre class='highlight'>$('#to_outerhtml').outerHTML()</pre>
             <pre class='highlight'>&lt;div id="to_outerhtml">&lt;p>this is text in a paragraph tag, wrapped with a div with id "to_outerhtml"&lt;/p>&lt;/div></pre>
           </div>
         </section>
@@ -250,6 +250,11 @@
           <div class='example'>
             <input type='text' />
             <textarea></textarea>
+            <select>
+              <option>option 1</option>
+              <option>option 2</option>
+              <option>option 3</option>
+            </select>
           </div>
           <div class='src'>
             Keyboard shortcuts are cool! Until you're typing a form and trigger them by accident. In the code for your keyboard shortcuts, add a this check:

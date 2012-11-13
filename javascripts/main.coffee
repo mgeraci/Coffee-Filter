@@ -60,7 +60,7 @@ set_tabindex = ->
   ])
 
 set_kb = ->
-  inputs = $('#keyboard_shortcuts input, #keyboard_shortcuts textarea')
+  inputs = $('#keyboard_shortcuts input, #keyboard_shortcuts textarea, #keyboard_shortcuts select')
 
   inputs.on 'focus', ->
     set_kb_status window.should_allow_keyboard_shortcuts()

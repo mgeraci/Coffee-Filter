@@ -64,7 +64,7 @@
 
   set_kb = function() {
     var inputs;
-    inputs = $('#keyboard_shortcuts input, #keyboard_shortcuts textarea');
+    inputs = $('#keyboard_shortcuts input, #keyboard_shortcuts textarea, #keyboard_shortcuts select');
     inputs.on('focus', function() {
       return set_kb_status(window.should_allow_keyboard_shortcuts());
     });

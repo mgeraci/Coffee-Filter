@@ -116,6 +116,10 @@ section .src pre{
 }
 
 /* keyboard shortcuts */
+#keyboard_shortcuts select{
+  width: 100%;
+}
+
 #kb_status.go{
   color: green;
 }
