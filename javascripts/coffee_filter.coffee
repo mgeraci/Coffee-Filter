@@ -304,7 +304,7 @@ jQuery.fn.link_urls = ()->
       (?:\([-A-Z0-9+&@\#/%=~_|$?!:,.]*\)|[A-Z0-9+&@\#/%=~_|$])
       ///ig
 
-      _($(this).text().match(exp)).each (url)=>
+      for url in $(this).text().match exp
         # add a protocol if it just starts with www
         href = if url.match(/^www.+/) then "http://#{url}" else url
 

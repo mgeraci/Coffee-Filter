@@ -277,16 +277,16 @@
 
   jQuery.fn.link_urls = function() {
     return $(this).each(function() {
-      var exp,
-        _this = this;
+      var exp, href, url, visual_url, _i, _len, _ref;
       if (!$(this).hasClass('autolinked')) {
         exp = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@\#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@\#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@\#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@\#\/%=~_|$])/ig;
-        _($(this).text().match(exp)).each(function(url) {
-          var href, visual_url;
+        _ref = $(this).text().match(exp);
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          url = _ref[_i];
           href = url.match(/^www.+/) ? "http://" + url : url;
           visual_url = url.split('').join('&#8203;').replace(/(^.{300}).+/, '$1...');
-          return $(_this).html($(_this).html().replace(/\&amp\;/g, '&').replace(url, "<a href='" + href + "' target='_blank'>" + visual_url + "</a>"));
-        });
+          $(this).html($(this).html().replace(/\&amp\;/g, '&').replace(url, "<a href='" + href + "' target='_blank'>" + visual_url + "</a>"));
+        }
         return $(this).addClass('autolinked');
       }
     });
