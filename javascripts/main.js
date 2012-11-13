@@ -43,7 +43,6 @@
   };
 
   set_ajax_button = function() {
-    window.set_original_text();
     return $('.fancy_button').on('click', function(e) {
       var _this = this;
       e.preventDefault();

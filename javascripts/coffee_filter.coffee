@@ -264,6 +264,9 @@ window.set_original_text = ->
 
 # begin save state
 jQuery.fn.save_state = ->
+  # set the current text to the original-text data attribute
+  $(this).attr('data-original-text', if $(this).is('a') then $(this).text() else $(this).val())
+
   saving_text = $(this).attr('data-saving-text')
   $(this).addClass('saving').css({opacity: 0.5})
   $(this).set_button_text saving_text

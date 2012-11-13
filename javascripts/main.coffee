@@ -38,8 +38,6 @@ set_center_image = ->
   $('#center_image_wrapper').center_image()
 
 set_ajax_button = ->
-  window.set_original_text()
-
   $('.fancy_button').on 'click', (e)->
     e.preventDefault()
     $(this).save_state()

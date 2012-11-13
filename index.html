@@ -157,21 +157,18 @@
         <section id='ajax_button'>
           <h2>Saving State for Ajax Forms</h2>
           <div class='example'>
-            <a class='fancy_button' data-original-text='click to save' data-saving-text='saving...' data-saved-text='saved!' href='#'></a>
+            <a class='fancy_button' data-saving-text='saving...' data-saved-text='saved!' href='#'>click to save</a>
           </div>
           <div class='src'>
             Saving a form via ajax? Want to give the user some feedback? Click the button to the left to see how it looks.
             <br>
             <br>It works by setting data attributes on your link or button:
             <ul>
-              <li>data-original-text: what the button or link will display</li>
               <li>data-saving-text: the text to display while saving</li>
-              <li>data-saved-text: optional, if present it shows for 1 second before reverting to the original text</li>
+              <li>data-saved-text: optional. If present it shows for 1 second before reverting to the original text</li>
             </li>
-            <pre class='highlight'>&lt;a href='#' class='fancy_button' data-original-text='click to save' data-saving-text='saving...' data-saved-text='saved!'>&lt;/a></pre>
-            <br>Note that there's no text in the anchor tag; it's only in the attribute. So on load, run this function, which goes through the buttons that have the original-text attribute and sets the text:
-            <pre class='highlight'>window.set_original_text()</pre>
-            <br>Then you can call this function on click:
+            <pre class='highlight'>&lt;a href='#' class='fancy_button' data-saving-text='saving...' data-saved-text='saved!'>click to save&lt;/a></pre>
+            <br>To trigger the save state, you can call this function on click:
             <pre class='highlight'>$('.fancy_button').click(function(){
   $(this).save_state();
 })</pre>

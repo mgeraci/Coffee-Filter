@@ -239,6 +239,7 @@
 
   jQuery.fn.save_state = function() {
     var saving_text;
+    $(this).attr('data-original-text', $(this).is('a') ? $(this).text() : $(this).val());
     saving_text = $(this).attr('data-saving-text');
     $(this).addClass('saving').css({
       opacity: 0.5
