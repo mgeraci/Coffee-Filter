@@ -9,6 +9,8 @@ $(window).load(->
     baseUrl: "#{window.location.origin}#{if window.location.origin.match('github') then '/Coffee-Filter' else ''}"
   })
 
+  drip_drip_drop() if Modernizr.csstransitions
+
   hover_tags()
   set_placeholder_text()
   set_autoexpand()
@@ -19,6 +21,21 @@ $(window).load(->
   set_tabindex()
   set_kb()
 )
+
+drip_drip_drop = ->
+  drip = $('#drip')
+
+  setTimeout(->
+    drip.addClass('dripping')
+    setTimeout(->
+      drip.removeClass('dripping').addClass('drop')
+    , 600)
+
+    setTimeout(->
+      drip.removeClass('drop')
+      drip_drip_drop()
+    , 1200)
+  , 5000)
 
 set_autoexpand = ->
   $('#autoexpand textarea').autoexpand(autoexpand_notifer)
