@@ -202,30 +202,30 @@
             Tap tab to see the custom tabindex in action (make sure no inputs have focus). It's the reverse of what the default would be.
             <br>
             <br>
-            <input type='text' class='tabindex4' />
+            <input type='text' class='input1' />
             <br>
-            <input type='text' class='tabindex3' />
+            <input type='text' class='input2' />
             <br>
-            <input type='text' class='tabindex2' />
+            <input type='text' class='input3' />
             <br>
-            <input type='text' class='tabindex1' />
+            <input type='text' class='input4' />
           </div>
           <div class='src'>
             There's an html attribute for controlling the tabindex on forms, but it can be useful to override what's present in the html (e.g., if you load a form in via ajax).
             <br>
             <br>In javascript, call pass an array of jQuery objects in the order that you want tabbed:
             <pre class='highlight'>window.set_tabindex([
-  $('.tabindex1'),
-  $('.tabindex2'),
-  $('.tabindex3'),
-  $('.tabindex4')
+  $('.input4'),
+  $('.input3'),
+  $('.input2'),
+  $('.input1')
 ])</pre>
             <br>html:
             <pre class='highlight'>
-&lt;input type='text' class='tabindex4' />
-&lt;input type='text' class='tabindex3' />
-&lt;input type='text' class='tabindex2' />
-&lt;input type='text' class='tabindex1' /></pre>
+&lt;input type='text' class='input1' />
+&lt;input type='text' class='input2' />
+&lt;input type='text' class='input3' />
+&lt;input type='text' class='input4' /></pre>
           </div>
         </section>
 

@@ -58,7 +58,7 @@
   };
 
   set_tabindex = function() {
-    return window.set_tabindex([$('.tabindex1'), $('.tabindex2'), $('.tabindex3'), $('.tabindex4')]);
+    return window.set_tabindex([$('.input4'), $('.input3'), $('.input2'), $('.input1')]);
   };
 
   set_kb = function() {

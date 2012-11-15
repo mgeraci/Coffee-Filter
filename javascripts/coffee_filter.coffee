@@ -313,6 +313,7 @@ jQuery.fn.link_urls = (cutoff = null)->
       $(this).addClass('autolinked')
 
 
+## Set a custom tabindex on elements:
 # remove tabindex on all items
 # iterate through passed array of jQuery elements
 # incrementing their tabindexes
@@ -322,12 +323,15 @@ window.set_tabindex = (items)->
     $(item).attr('tabindex', i+1)
 
 # get the html of an object, including its wrapper
+# found this one on stackoverflow somewhere, don't remember
+# the original author :(
 jQuery.fn.outerHTML = ()->
   $(this).clone().wrap('<div>').parent().html()
 
 # should keyboard shortcuts be allowed? returns true or false.
 # sees that you are not in an input or textarea
-# requires <html> to have the class "ie8" when appropriate
+# requires <html> to have the class "ie8" when appropriate because
+# ie8 doesn't support the :focus pseudoelement
 window.should_allow_keyboard_shortcuts = ->
   if $(':focus').is('input') || $(':focus').is('textarea') || $(':focus').is('select') || $('html').hasClass('ie8')
     return false
