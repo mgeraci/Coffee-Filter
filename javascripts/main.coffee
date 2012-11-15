@@ -47,7 +47,7 @@ set_ajax_button = ->
     , 1500)
 
 set_autolink = ->
-  $('#to_autolink').link_urls()
+  $('#to_autolink').link_urls(30)
 
 set_tabindex = ->
   window.set_tabindex([

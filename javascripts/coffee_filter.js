@@ -268,16 +268,20 @@
     }
   };
 
-  jQuery.fn.link_urls = function() {
+  jQuery.fn.link_urls = function(cutoff) {
+    if (cutoff == null) {
+      cutoff = null;
+    }
     return $(this).each(function() {
-      var exp, href, url, visual_url, _i, _len, _ref;
+      var cutoff_regex, exp, href, url, visual_url, _i, _len, _ref;
       if (!$(this).hasClass('autolinked')) {
         exp = /\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@\#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@\#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@\#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@\#\/%=~_|$])/ig;
         _ref = $(this).text().match(exp);
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           url = _ref[_i];
           href = url.match(/^www.+/) ? "http://" + url : url;
-          visual_url = url.split('').join('&#8203;').replace(/(^.{300}).+/, '$1...');
+          cutoff_regex = new RegExp("(^.{" + cutoff + "}).+");
+          visual_url = url.replace(cutoff_regex, '$1...').split('').join('&#8203;');
           $(this).html($(this).html().replace(/\&amp\;/g, '&').replace(url, "<a href='" + href + "' target='_blank'>" + visual_url + "</a>"));
         }
         return $(this).addClass('autolinked');

@@ -54,7 +54,7 @@
   };
 
   set_autolink = function() {
-    return $('#to_autolink').link_urls();
+    return $('#to_autolink').link_urls(30);
   };
 
   set_tabindex = function() {

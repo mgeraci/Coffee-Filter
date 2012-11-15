@@ -185,13 +185,12 @@
         <section id='autolink'>
           <h2>Autolink Text</h2>
           <div class='example'>
-            <div id='to_autolink'>This text had no links in it before javascript ran. You can see my portfolio at www.mgeraci.com or http://www.michaelgeraci.com, check it out!</div>
+            <div id='to_autolink'>You can see my portfolio at www.mgeraci.com and my photoblog at http://www.mgeraci.com/photography/blog, check it out! This text had no links in it before javascript ran.</div>
           </div>
           <div class='src'>
-            If you have a block of text that may have links written out in it, you can run .link_urls() on it to find the links and add anchor tags. We use it on user-supplied comments.
-            <pre class='highlight'>$('#to_autolink').link_urls()</pre>
-            <br>
-            It will only run once on a given element, so you can run it on a class and later append other elements of that class without it trying to re-link existing elements.
+            If you have a block of text that may have links written out in it, you can run .link_urls() on it to find the links and add anchor tags. Optionally, you can pass a number of characters after which the url will be trimmed.
+            <pre class='highlight'>$('#to_autolink').link_urls(30)</pre>
+            <br>In addition, the function adds zero-width spaces to the string to ensure that the urls wrap. It will only run once on a given element, so you can run it on a class and later append other elements of that class without it trying to re-link existing elements.
             <br>
             <br>The regex used does a pretty good job, but only catches urls that start with http:// or www.
           </div>
