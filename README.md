@@ -3,6 +3,18 @@ Coffee Filter
 
 Coffee Filter is a collection of coffeescript helpers I've used across projects. [Check out the demo page](http://mgeraci.github.com/Coffee-Filter)!
 
+It includes:
+* hover tags for showing notes on an element (e.g., a username when hovering over an avatar)
+* placeholder text for browsers that don't support the html5 spec
+* textarea autoexpand when typing large blocks of text
+* fill a square with an image of arbitrary dimensions
+* position an image of arbitrary dimensions in a square
+* saving and default states for buttons/links when using ajax
+* autolink urls in a block of text (great for comments!)
+* set a custom tabindex on an array of items
+* outerHTML()
+* a check to see if keyboard shortcuts should be enabled (if not ie8 or typing in a field)
+
 
 License
 -------
