@@ -1,12 +1,12 @@
-#      = Coffee Filter =
+#     = Coffee Filter =
 #
 #  _______________________
-#  \\\                   /
-#   \\\                 /
-#    \\\               /
-#     \\\             /
-#      \\\           /
-#       \\\\\\\\\\\\/
+#  \                   ///
+#   \                 ///
+#    \               ///
+#     \             ///
+#      \           ///
+#       \////////////
 #
 #
 # A collection of coffeescript helpers I've used across projects
@@ -19,9 +19,10 @@
 # show a tag on hover (e.g., a username when hovering over an avatar)
 # add the desired text as a data attribute on the element, e.g.:
 #   <img src='/images/avatar.png' data-hover-tag='michael geraci'>
-#   optionally, add data-hover-tag-top and/or data-hover-tag-left
-#   to override the default offset
+# optionally, add data-hover-tag-top and/or data-hover-tag-left
+# to override the default offset
 window.hover_tags = ->
+  # position and show the tag on mouseover of element
   $('body').on 'mouseover', '[data-hover-tag]', (e)->
     target = $(this).closest('[data-hover-tag]')
 
@@ -39,6 +40,7 @@ window.hover_tags = ->
 
     # append tag and styles if it doesn't exist
     if $('.hover_tag').length == 0
+      # styles for the tag wrapper
       tag_styles =
         position: 'absolute'
         display: 'none'
@@ -51,6 +53,7 @@ window.hover_tags = ->
         zIndex: 800
         textShadow: 'none'
 
+      # styles for the triangle pointing towards the element
       pointer_styles =
         position: 'absolute'
         top: '-6px'
@@ -92,6 +95,7 @@ window.hover_tags = ->
       left: position.left - tag.outerWidth() / 2 + target.width() / 2 + left_offset
     ).show()
 
+  # hide the tag on mouseout of element
   $('body').on 'mouseout', '[data-hover-tag]', (e)->
     $('.hover_tag').hide()
 
@@ -155,6 +159,7 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
           textarea.attr('rows', lines + returns + 2)
           oldValue = newValue
 
+          # if we've changed the textarea's size
           if oldLines != textarea.attr('rows')
             oldLines = textarea.attr('rows')
 
@@ -184,8 +189,8 @@ jQuery.fn.square_image = ->
   w = img.width()
   h = img.height()
 
-  wrapper.css({position: 'relative', overflow: 'hidden'})
-  img.css({position: 'absolute'})
+  wrapper.css position: 'relative', overflow: 'hidden'
+  img.css position: 'absolute'
 
   if w < h
     smaller = w
@@ -194,41 +199,42 @@ jQuery.fn.square_image = ->
     smaller = h
     larger = w
 
-  # get the amount of the image to offset it by
+  # the percentage by which we'll offset the image
   percent = (((larger - smaller) / 2) * 100 / larger * -1) / 100
 
   # make the smaller dimension 100% and the other auto
   # and position the image in the center
   if h > w # portrait
-    img.css({width: '100%', height: 'auto'})
-    img.css({top: Math.floor(percent * img.height())})
+    img.css width: '100%', height: 'auto'
+    img.css top: Math.floor(percent * img.height())
   else if h < w # landscape
-    img.css({width: 'auto', height: '100%'})
-    img.css({left: Math.floor(percent * img.width())})
+    img.css width: 'auto', height: '100%'
+    img.css left: Math.floor(percent * img.width())
   else # square
-    img.css({width: '100%', height: '100%'})
+    img.css width: '100%', height: '100%'
 
 # center an image a box, keeping its original
 # aspect ratio
 jQuery.fn.center_image = ->
   wrapper = $(this)
   img = wrapper.find('img')
-  wrapper.css({position: 'relative', overflow: 'hidden'})
+  wrapper.css position: 'relative', overflow: 'hidden'
 
   w = img.width()
   h = img.height()
   max_size = if wrapper.height() > wrapper.width() then wrapper.width() else wrapper.height()
 
-  # if the image is smaller than the box
-  if w <= max_size && h <= max_size
+  # if the image is smaller than the box,
+  # center it within the box
+  # otherwise, make the larger dimension 100%
+
+  if w <= max_size && h <= max_size # img is smaller than the box
     img.width(w)
     img.height(h)
     margin_top = (max_size - h) / 2
     margin_left = (max_size - w) / 2
-    img.css({margin: "#{margin_top}px 0 0 #{margin_left}px"})
-
-  # if the image is larger than the box
-  else
+    img.css margin: "#{margin_top}px 0 0 #{margin_left}px"
+  else # if the image is larger than the box
     # handle each case (w>h, h>w, w==h)
     if w == h
       img.width(max_size)
@@ -237,19 +243,11 @@ jQuery.fn.center_image = ->
       if w > h
         new_max = max_size / (w / h)
         margin = (max_size - new_max) / 2
-        img.css({
-          width: max_size,
-          height: new_max,
-          margin: "#{margin}px 0 0 0"
-        })
+        img.css width: max_size, height: new_max,  margin: "#{margin}px 0 0 0"
       else
         new_max = max_size / (h / w)
         margin = (max_size - new_max) / 2
-        img.css({
-          width: new_max,
-          height: max_size,
-          margin: "0 0 0 #{margin}px"
-        })
+        img.css width: new_max, height: max_size, margin: "0 0 0 #{margin}px"
 
 
 ## these next two handle "save" and "done saving" states for buttons
@@ -259,11 +257,11 @@ jQuery.fn.center_image = ->
 
 # begin save state
 jQuery.fn.save_state = ->
-  # set the current text to the original-text data attribute
+  # set the "original-text" data attribute to the current text
   $(this).attr('data-original-text', if $(this).is('a') then $(this).text() else $(this).val())
 
   saving_text = $(this).attr('data-saving-text')
-  $(this).addClass('saving').css({opacity: 0.5})
+  $(this).addClass('saving').css opacity: 0.5
   $(this).set_button_text saving_text
 
 # return to default state
@@ -291,7 +289,7 @@ jQuery.fn.set_button_text = (text)->
     $(this).val text
 
 # replace text links with html links in a block of text
-jQuery.fn.link_urls = ()->
+jQuery.fn.link_urls = (cutoff = null)->
   $(this).each ->
     unless $(this).hasClass('autolinked')
       # regular expression is from http://www.regexguru.com/2008/11/detecting-urls-in-a-block-of-text/
@@ -305,8 +303,9 @@ jQuery.fn.link_urls = ()->
         # add a protocol if it just starts with www
         href = if url.match(/^www.+/) then "http://#{url}" else url
 
-        # break the url with zero-width spaces and an ellipsis for readability
-        visual_url = url.split('').join('&#8203;').replace(/(^.{300}).+/, '$1...')
+        # break the url with zero-width spaces
+        cutoff_regex = new RegExp "(^.{#{cutoff}}).+"
+        visual_url = url.replace(cutoff_regex, '$1...').split('').join('&#8203;')
 
         # replace the url with a link
         $(this).html $(this).html().replace(/\&amp\;/g, '&').replace(url, "<a href='#{href}' target='_blank'>#{visual_url}</a>")
@@ -314,6 +313,7 @@ jQuery.fn.link_urls = ()->
       $(this).addClass('autolinked')
 
 
+## Set a custom tabindex on elements:
 # remove tabindex on all items
 # iterate through passed array of jQuery elements
 # incrementing their tabindexes
@@ -323,14 +323,18 @@ window.set_tabindex = (items)->
     $(item).attr('tabindex', i+1)
 
 # get the html of an object, including its wrapper
+# found this one on stackoverflow somewhere, don't remember
+# the original author :(
 jQuery.fn.outerHTML = ()->
   $(this).clone().wrap('<div>').parent().html()
 
 # should keyboard shortcuts be allowed? returns true or false.
 # sees that you are not in an input or textarea
-# requires <html> to have the class "ie8" when appropriate
+# requires <html> to have the class "ie8" when appropriate because
+# ie8 doesn't support the :focus pseudoelement
 window.should_allow_keyboard_shortcuts = ->
   if $(':focus').is('input') || $(':focus').is('textarea') || $(':focus').is('select') || $('html').hasClass('ie8')
     return false
   else
     return true
+
