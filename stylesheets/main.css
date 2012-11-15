@@ -11,7 +11,7 @@
 
 @font-face{
   font-family:"mgeraci-body";
-  src:url("http://www.mgeraci.com/fonts/body_bold.eot?#iefix") format("embedded-opentype"),url("http://www.mgeraci.com/fonts/body_bold.woff") format("woff"),url("http://www.mgeraci.com/fonts/body_bold.ttf") format("truetype"),url("http://www.mgeraci.com/fonts/body_bold.svg#BodyBold") format("svg");
+  src:url("../fonts/body_bold.eot?#iefix") format("embedded-opentype"),url("../fonts/body_bold.woff") format("woff"),url("../fonts/body_bold.ttf") format("truetype"),url("../fonts/body_bold.svg#BodyBold") format("svg");
   font-weight:bold;
   font-style:normal;
 }
