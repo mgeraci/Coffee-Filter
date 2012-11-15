@@ -15,6 +15,10 @@ It includes:
 * outerHTML()
 * a check to see if keyboard shortcuts should be enabled (if not ie8 or typing in a field)
 
+Thanks
+------
+
+Special thanks to Reachably, the company at which I wrote most of these. Check out their [website](http://www.reachably.com) and [github](http://github.com/dtime).
 
 License
 -------
