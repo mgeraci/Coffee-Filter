@@ -6,7 +6,7 @@ $(window).load(->
     lineNumbers: false
     theme: 'sunburst'
     themes: ['sunburst']
-    baseUrl: "#{window.location.origin}#{if window.location.origin.match('github') then '/Coffee-Filter' else ''}"
+    baseUrl: "#{window.location.protocol}//#{window.location.host}#{if window.location.host.match('github') then '/Coffee-Filter' else ''}"
   })
 
   drip_drip_drop() if Modernizr.csstransitions

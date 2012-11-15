@@ -8,7 +8,7 @@
       lineNumbers: false,
       theme: 'sunburst',
       themes: ['sunburst'],
-      baseUrl: "" + window.location.origin + (window.location.origin.match('github') ? '/Coffee-Filter' : '')
+      baseUrl: "" + window.location.protocol + "//" + window.location.host + (window.location.host.match('github') ? '/Coffee-Filter' : '')
     });
     if (Modernizr.csstransitions) {
       drip_drip_drop();
