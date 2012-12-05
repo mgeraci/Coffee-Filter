@@ -91,7 +91,7 @@
     }
   };
 
-  jQuery.fn.autoexpand = function(on_change, force) {
+  jQuery.fn.autoexpand = function(on_change, force, on_init) {
     var elements,
       _this = this;
     if (on_change == null) {
@@ -100,30 +100,37 @@
     if (force == null) {
       force = false;
     }
+    if (on_init == null) {
+      on_init = false;
+    }
     if (!$('html').hasClass('ie8')) {
       elements = $(this);
       return elements.each(function(i, textarea) {
-        var interval, observer, oldLines, oldValue;
+        var interval, newValue, observer, oldLines, oldValue, resize;
         textarea = $(textarea);
         interval = null;
         oldValue = textarea.val();
         oldLines = textarea.attr('rows') || 0;
+        newValue = textarea.val();
+        resize = function() {
+          var char_per_line, current_length, lines, returns, _ref;
+          char_per_line = textarea.width() / 6;
+          current_length = newValue.length;
+          lines = Math.floor(current_length / char_per_line);
+          returns = ((_ref = newValue.match(/\n/g)) != null ? _ref.length : void 0) || 0;
+          textarea.attr('rows', lines + returns + 2);
+          oldValue = newValue;
+          if (oldLines !== textarea.attr('rows')) {
+            oldLines = textarea.attr('rows');
+            if (on_change) {
+              return on_change();
+            }
+          }
+        };
         observer = function() {
-          var char_per_line, current_length, lines, newValue, returns, _ref;
           newValue = textarea.val();
           if (newValue !== oldValue) {
-            char_per_line = textarea.width() / 6;
-            current_length = newValue.length;
-            lines = Math.floor(current_length / char_per_line);
-            returns = ((_ref = newValue.match(/\n/g)) != null ? _ref.length : void 0) || 0;
-            textarea.attr('rows', lines + returns + 2);
-            oldValue = newValue;
-            if (oldLines !== textarea.attr('rows')) {
-              oldLines = textarea.attr('rows');
-              if (on_change) {
-                return on_change();
-              }
-            }
+            return resize();
           }
         };
         textarea.focus(function() {
@@ -133,7 +140,10 @@
           return clearInterval(interval);
         });
         if (force) {
-          return textarea.focus();
+          textarea.focus();
+        }
+        if (on_init) {
+          return resize();
         }
       });
     }

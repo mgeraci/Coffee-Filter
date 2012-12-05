@@ -131,7 +131,7 @@ window.set_placeholder_text = ->
 #
 # requires the class ie8 on <html> to keep this function from running.
 # based on code from http://tore.darell.no/posts/auto_expanding_textarea
-jQuery.fn.autoexpand = (on_change = false, force = false)->
+jQuery.fn.autoexpand = (on_change = false, force = false, on_init = false)->
   # don't run on ie8
   unless $('html').hasClass('ie8')
     elements = $(this)
@@ -142,6 +142,24 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
       interval = null
       oldValue = textarea.val()
       oldLines = textarea.attr('rows') || 0
+      newValue = textarea.val()
+
+      resize   = ->
+        char_per_line = textarea.width() / 6
+        current_length = newValue.length
+        lines = Math.floor(current_length / char_per_line)
+        returns = newValue.match(/\n/g)?.length || 0 # number of user-entered new lines
+
+        # Set the "rows" attribute to the number of lines + 2
+        textarea.attr('rows', lines + returns + 2)
+        oldValue = newValue
+
+        # if we've changed the textarea's size
+        if oldLines != textarea.attr('rows')
+          oldLines = textarea.attr('rows')
+
+          # run on change function if it exists
+          on_change() if on_change
 
       # The observer function for auto textarea resizing
       observer = =>
@@ -150,21 +168,7 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
 
         # if the value has changed
         if newValue != oldValue
-          char_per_line = textarea.width() / 6
-          current_length = newValue.length
-          lines = Math.floor(current_length / char_per_line)
-          returns = newValue.match(/\n/g)?.length || 0 # number of user-entered new lines
-
-          # Set the "rows" attribute to the number of lines + 2
-          textarea.attr('rows', lines + returns + 2)
-          oldValue = newValue
-
-          # if we've changed the textarea's size
-          if oldLines != textarea.attr('rows')
-            oldLines = textarea.attr('rows')
-
-            # run on change function if it exists
-            on_change() if on_change
+          resize()
 
       # When the user focuses the textarea, create the observer interval
       textarea.focus ->
@@ -178,6 +182,8 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
 
       # set the watcher if using force
       textarea.focus() if force
+
+      resize() if on_init
 
 
 # given an image of arbitrary dimensions,
