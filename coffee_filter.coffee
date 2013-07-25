@@ -258,7 +258,7 @@ jQuery.fn.center_image = ->
 # begin save state
 jQuery.fn.save_state = ->
   # set the "original-text" data attribute to the current text
-  $(this).attr('data-original-text', if $(this).is('a') then $(this).text() else $(this).val())
+  $(this).attr('data-original-text', if $(this).is('input') then $(this).val() else $(this).text())
 
   saving_text = $(this).attr('data-saving-text')
   $(this).addClass('saving').css opacity: 0.5
@@ -283,10 +283,10 @@ jQuery.fn.unsave_state = ->
 
 # set the text on an anchor or button tag
 jQuery.fn.set_button_text = (text)->
-  if $(this).is('a')
-    $(this).text text
-  else
+  if $(this).is('input')
     $(this).val text
+  else
+    $(this).text text
 
 # replace text links with html links in a block of text
 jQuery.fn.link_urls = (cutoff = null)->
