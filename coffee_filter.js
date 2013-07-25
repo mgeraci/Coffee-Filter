@@ -231,7 +231,7 @@
 
   jQuery.fn.save_state = function() {
     var saving_text;
-    $(this).attr('data-original-text', $(this).is('a') ? $(this).text() : $(this).val());
+    $(this).attr('data-original-text', $(this).is('input') ? $(this).val() : $(this).text());
     saving_text = $(this).attr('data-saving-text');
     $(this).addClass('saving').css({
       opacity: 0.5
@@ -261,10 +261,10 @@
   };
 
   jQuery.fn.set_button_text = function(text) {
-    if ($(this).is('a')) {
-      return $(this).text(text);
-    } else {
+    if ($(this).is('input')) {
       return $(this).val(text);
+    } else {
+      return $(this).text(text);
     }
   };
 
