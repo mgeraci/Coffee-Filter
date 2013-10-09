@@ -180,38 +180,57 @@ jQuery.fn.autoexpand = (on_change = false, force = false)->
       textarea.focus() if force
 
 
-# given an image of arbitrary dimensions,
-# center it within a square wrapper
-# wrapper must have a defined width and height
+# Given an image of arbitrary dimensions,
+# center it within a square wrapper.
+# Wrapper must have a defined width and height.
 jQuery.fn.square_image = ->
-  wrapper = $(this)
-  img = wrapper.find('img')
-  w = img.width()
-  h = img.height()
 
-  wrapper.css position: 'relative', overflow: 'hidden'
-  img.css position: 'absolute'
+  wrapper = $ @
+  img = wrapper.find 'img'
+  src = img.attr 'src'
 
-  if w < h
-    smaller = w
-    larger = h
-  else
-    smaller = h
-    larger = w
+  wrapper.css
+    position: 'relative'
+    overflow: 'hidden'
 
-  # the percentage by which we'll offset the image
-  percent = (((larger - smaller) / 2) * 100 / larger * -1) / 100
+  # Hide image and bind handler to resize image on load.
+  img.hide().load ->
 
-  # make the smaller dimension 100% and the other auto
-  # and position the image in the center
-  if h > w # portrait
-    img.css width: '100%', height: 'auto'
-    img.css top: Math.floor(percent * img.height())
-  else if h < w # landscape
-    img.css width: 'auto', height: '100%'
-    img.css left: Math.floor(percent * img.width())
-  else # square
-    img.css width: '100%', height: '100%'
+    w = img.width()
+    h = img.height()
+
+    [smaller, larger] = if w < h then [w, h] else [h, w]
+
+    # The percentage by which we'll offset the image.
+    p = (((larger - smaller) / 2) * 100 / larger * -1) / 100
+
+    # Set the smaller dimension to 100% and the other to auto.
+    # And position the image in the center.
+    if h > w
+      # Portrait
+      img.css
+        position: 'absolute'
+        width: '100%'
+        height: 'auto'
+        top: Math.floor p * h
+    else if h < w
+      # Landscape
+      img.css
+        position: 'absolute'
+        width: 'auto'
+        height: '100%'
+        left: Math.floor p * w
+    else
+      # Square
+      img.css
+        position: 'absolute'
+        width: '100%'
+        height: '100%'
+
+    img.show()
+
+  # refresh src attribute so load event will trigger properly in IE.
+  img.attr 'src', src
 
 # center an image a box, keeping its original
 # aspect ratio
